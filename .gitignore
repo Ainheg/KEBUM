@@ -1,3 +1,6 @@
 __pycache__/
 *.lnk
 .ipynb_checkpoints
+*.json
+*.txt
+*.xlsx
