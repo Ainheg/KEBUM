@@ -24,7 +24,11 @@ class CaveMap:
         return { 
                  "grid" : self.grid.tolist(),
                  "spawn_points" : self.spawn_points,
-                 "treasure_locations" : self.treasure_locations 
+                 "treasure_locations" : self.treasure_locations,
+                 "hint_location" : self.hint_location,
+                 "map_type" : "cave",
+                 "entrance" : self.entrance,
+                 "exit" : self.exit,                 
                 }
 
     def create_map(self):
