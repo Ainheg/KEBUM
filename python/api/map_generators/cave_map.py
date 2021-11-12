@@ -136,6 +136,7 @@ class CaveMap:
         # round coordinates and omit ones that land on a wall
         spawn_points = [(int(x), int(y)) for x, y in spawn_points if self.grid[int(y)][int(x)] == 0]
         selected_spawn_points.extend(spawn_points)
+        # TODO: add entrance and exit
         self.spawn_points = selected_spawn_points
 
     def __add_spawn_points(self, grid, spawn_spots):
