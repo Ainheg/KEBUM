@@ -120,6 +120,8 @@ class CaveMap:
     def __filter_treasure_locations(self):
         # I think a 50% chance for each one to be present on the map will be enough for now
         self.treasure_locations = [loc for loc in self.treasure_locations if random.choices([True, False], weights=[0.5, 0.5])[0]]
+        self.hint_location = random.choice(self.treasure_locations)
+        self.treasure_locations.remove(self.hint_location)
         
     def __filter_spawn_points(self):
         tmp_grid = array(self.grid, copy=True)
@@ -136,10 +138,13 @@ class CaveMap:
         # round coordinates and omit ones that land on a wall
         spawn_points = [(int(x), int(y)) for x, y in spawn_points if self.grid[int(y)][int(x)] == 0]
         selected_spawn_points.extend(spawn_points)
-        # TODO: add entrance and exit
+        selected_spawn_points = sorted(selected_spawn_points, key=lambda x: (x[0], x[1]))
+        self.entrance = selected_spawn_points.pop(0)
+        self.exit = selected_spawn_points.pop()
         self.spawn_points = selected_spawn_points
 
     def __add_spawn_points(self, grid, spawn_spots):
+        # unused
         for x, y in spawn_spots:
             grid[y][x] = 4
 
