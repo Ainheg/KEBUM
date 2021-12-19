@@ -1,0 +1,201 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/fight/assets/question_mark_icon.png" type="Texture" id=1]
+[ext_resource path="res://scenes/fight/assets/pierce_icon.png" type="Texture" id=2]
+[ext_resource path="res://scenes/fight/assets/block_icon.png" type="Texture" id=3]
+[ext_resource path="res://scenes/fight/assets/block_button.png" type="Texture" id=4]
+[ext_resource path="res://scenes/fight/assets/attack_button.png" type="Texture" id=5]
+[ext_resource path="res://scenes/fight/assets/pierce_button.png" type="Texture" id=7]
+[ext_resource path="res://scenes/fight/assets/player/basic.png" type="Texture" id=8]
+[ext_resource path="res://scenes/fight/assets/enemy/basic.png" type="Texture" id=9]
+[ext_resource path="res://scenes/fight/Fight.gd" type="Script" id=10]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/attack_icon.png-087e21c4323f0ae87965f302013396d3.stex"
+
+[node name="Fight" type="Node"]
+script = ExtResource( 10 )
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginC" type="MarginContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBC" type="VBoxContainer" parent="UI/MarginC"]
+margin_right = 1880.0
+margin_bottom = 1040.0
+alignment = 2
+
+[node name="HBC" type="HBoxContainer" parent="UI/MarginC/VBC"]
+margin_right = 1880.0
+margin_bottom = 896.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="EnemyContainer" type="CenterContainer" parent="UI/MarginC/VBC/HBC"]
+margin_right = 938.0
+margin_bottom = 896.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Enemy" type="TextureRect" parent="UI/MarginC/VBC/HBC/EnemyContainer"]
+margin_left = 344.0
+margin_top = 248.0
+margin_right = 594.0
+margin_bottom = 648.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerContainer" type="CenterContainer" parent="UI/MarginC/VBC/HBC"]
+margin_left = 942.0
+margin_right = 1880.0
+margin_bottom = 896.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Player" type="TextureRect" parent="UI/MarginC/VBC/HBC/PlayerContainer"]
+margin_left = 344.0
+margin_top = 248.0
+margin_right = 594.0
+margin_bottom = 648.0
+texture = ExtResource( 8 )
+
+[node name="MovesUI" type="HBoxContainer" parent="UI/MarginC/VBC"]
+margin_top = 900.0
+margin_right = 1880.0
+margin_bottom = 1040.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyMoves" type="HBoxContainer" parent="UI/MarginC/VBC/MovesUI"]
+margin_left = 576.0
+margin_right = 886.0
+margin_bottom = 140.0
+custom_constants/separation = 5
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
+margin_right = 100.0
+margin_bottom = 140.0
+texture = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move2" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
+margin_left = 105.0
+margin_right = 205.0
+margin_bottom = 140.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move3" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
+margin_left = 210.0
+margin_right = 310.0
+margin_bottom = 140.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveControlsCC" type="CenterContainer" parent="UI/MarginC/VBC/MovesUI"]
+margin_left = 890.0
+margin_right = 990.0
+margin_bottom = 140.0
+
+[node name="MoveControlsVB" type="VBoxContainer" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC"]
+margin_top = 30.0
+margin_right = 100.0
+margin_bottom = 110.0
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AtkBtn" type="TextureButton" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB"]
+margin_right = 100.0
+margin_bottom = 20.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 5 )
+
+[node name="BlkBtn" type="TextureButton" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB"]
+margin_top = 30.0
+margin_right = 100.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 4 )
+
+[node name="PrcBtn" type="TextureButton" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB"]
+margin_top = 60.0
+margin_right = 100.0
+margin_bottom = 80.0
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 7 )
+
+[node name="PlayerMoves" type="HBoxContainer" parent="UI/MarginC/VBC/MovesUI"]
+margin_left = 994.0
+margin_right = 1304.0
+margin_bottom = 140.0
+custom_constants/separation = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
+margin_right = 100.0
+margin_bottom = 140.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move2" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
+margin_left = 105.0
+margin_right = 205.0
+margin_bottom = 140.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Move3" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
+margin_left = 210.0
+margin_right = 310.0
+margin_bottom = 140.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB/AtkBtn" to="." method="_on_AtkBtn_pressed"]
+[connection signal="pressed" from="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB/BlkBtn" to="." method="_on_BlkBtn_pressed"]
+[connection signal="pressed" from="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB/PrcBtn" to="." method="_on_PrcBtn_pressed"]

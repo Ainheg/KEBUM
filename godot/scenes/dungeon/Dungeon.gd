@@ -1,7 +1,6 @@
 extends Spatial
 
 # A generic dungeon
-var player = load("res://entities/player/Player.tscn").instance()
 var _map_grid
 var _map_height
 var _map_width
@@ -12,9 +11,10 @@ var _hint_location
 var _entrance
 var _exit
 
+var spawner = load("res://entities/enemies/generic_enemy/Spawner.tscn")
+var _player
 
-
-func init(map_dict):
+func init(map_dict, player):
 	"""Initializes a Dungeon-class object, takes in dictionary map_dict"""
 	_map_grid = map_dict["grid"]
 	_map_height = len(_map_grid)
@@ -32,16 +32,25 @@ func init(map_dict):
 			var item = _map_grid[z][x]
 			if item == 2:
 				item = 1
-			$Terrain.set_cell_item(x - int(_map_width/2), 0, z - int(_map_height/2), item)
+			$Terrain.set_cell_item(x, 0, z, item)
 	print("Dungeon scene created")
-	$Camera.make_current()
-	print(get_viewport().get_camera())
+	_place_spawners()
+	self._player = player
+	self.call_deferred("add_child", player)
 	_place_player()
 
-func _place_player():
-	self.add_child(player)
+func _place_spawners():
 	var cell_scale = $Terrain.get_cell_size()
-	player.init(_entrance[0] * cell_scale[0], 1, _entrance[1] * cell_scale[2])
+	for spawn_point in _enemy_spawn_points:
+		var x = spawn_point[0]
+		var z = spawn_point[1]
+		var s = spawner.instance()
+		$SpawnPoints.call_deferred("add_child", s)
+		s.init(x * cell_scale[0], 1, z * cell_scale[2])
+
+func _place_player():
+	var cell_scale = $Terrain.get_cell_size()
+	self._player.init(_entrance[0] * cell_scale[0], 1, _entrance[1] * cell_scale[2])
 
 func _ready():
 	pass

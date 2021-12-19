@@ -11,18 +11,25 @@ config_version=4
 [application]
 
 config/name="KEBUM"
-run/main_scene="res://menus/MainMenu.tscn"
+run/main_scene="res://globals/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Main="*res://globals/Main.gd"
 Requests="*res://globals/Requests.gd"
+PlayerAttributes="*res://globals/PlayerAttributes.gd"
+PlayerInventory="*res://globals/PlayerInventory.gd"
 
 [debug]
 
 settings/stdout/print_fps=true
 shapes/collision/draw_2d_outlines=false
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
 
 [input]
 
