@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/assets/UITheme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/assets/hp_title.png" type="Texture" id=2]
+[ext_resource path="res://ui/assets/bar_background.png" type="Texture" id=3]
+[ext_resource path="res://ui/HPBar.gd" type="Script" id=4]
+
+[node name="HPBar" type="Container"]
+margin_right = 600.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 600, 150 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Counter" type="NinePatchRect" parent="."]
+margin_right = 600.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+
+[node name="Title" type="TextureRect" parent="Counter"]
+anchor_left = 0.051
+anchor_right = 0.051
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Counter"]
+anchor_left = 0.3
+anchor_right = 0.95
+anchor_bottom = 1.0
+margin_top = -7.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+text = "00/00"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

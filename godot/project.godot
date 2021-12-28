@@ -18,8 +18,8 @@ config/icon="res://icon.png"
 
 Main="*res://globals/Main.gd"
 Requests="*res://globals/Requests.gd"
-PlayerAttributes="*res://globals/PlayerAttributes.gd"
 PlayerInventory="*res://globals/PlayerInventory.gd"
+EnemyConsts="*res://globals/EnemyConsts.gd"
 
 [debug]
 
