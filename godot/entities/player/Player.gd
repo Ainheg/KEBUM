@@ -5,11 +5,13 @@ signal player_died
 signal health_changed(current_health, max_health)
 signal level_up(old_level, current_level)
 signal xp_gained(old_xp, new_xp)
+signal stat_increased
 
 # LEVEL AND XP
 const MAX_LEVEL = 30
 var level = 1
 var experience = 0
+var upgrade_count = 1
 
 # MACRO STATS
 var STR = 0
@@ -32,6 +34,7 @@ const lifesteal = 0.0
 
 var max_health = 50.0
 var current_health = 50.0
+var dead = false
 
 # MOVEMENT VARIABLES
 var speed = 600
@@ -39,9 +42,10 @@ var sensitivity = 0.15
 onready var gimbal = get_node("Gimbal")
 
 func init(x, y, z):
-	yield(self, "ready")
 	global_translate(Vector3(x, y, z))
 	set_camera()
+	if dead:
+		reset_stats()
 
 func _ready():
 	print("Player ready")
@@ -79,14 +83,6 @@ func _physics_process(delta):
 func set_camera():
 	$Gimbal/Camera.make_current()
 
-func increase_stats(strength=0, agility=0, perception=0, defense=0, luck=0, constitution=0):
-	STR += strength
-	AGI += agility
-	PER += perception
-	DEF += defense
-	LCK += luck
-	CST += constitution
-
 # INVENTORY
 onready var inventory = get_node("/root/PlayerInventory")
 
@@ -107,12 +103,14 @@ func get_stats_with_items():
 	for item in inventory.equipped.values():
 		if item == null:
 			continue
-		for stat in item.stats:
-			cur_stats[stat] += item.stats[stat]
+		var item_stats = item.get_stats()
+		for stat in item_stats:
+			cur_stats[stat] += item_stats[stat]
 	return cur_stats
 
 func get_derived_stats():
 	var cur_stats = get_stats_with_items()
+	
 	var derived_stats = {
 		"ATK_PWR" : attack_power + 10.0 * cur_stats["STR"],
 		"ARMOR" : armor + 5.0 * cur_stats["DEF"],
@@ -128,8 +126,9 @@ func get_derived_stats():
 	for item in inventory.equipped.values():
 		if item == null:
 			continue
-		for bonus in item.bonuses:
-			var value = item.bonuses[bonus]
+		var bonuses = item.get_bonuses()
+		for bonus in bonuses:
+			var value = bonuses[bonus]
 			if "%" in bonus:
 				var bonus_name = bonus.substr(2, len(bonus)-1)
 				if bonus_name in percentage_bonuses:
@@ -157,7 +156,8 @@ func add_health(value):
 	if current_health >= max_health:
 		current_health = max_health
 	emit_signal("health_changed", current_health)
-	if current_health <= 0:
+	if current_health <= 0 and !dead:
+		dead = true
 		call_deferred("emit_signal", "player_died")
 
 func get_current_health():
@@ -176,6 +176,9 @@ func get_xp_for_next_level():
 func get_level():
 	return level
 
+func get_upgrade_count():
+	return upgrade_count
+
 func add_xp(value):
 	print("Gained " + str(value) + " xp")
 	while value > 0:
@@ -191,8 +194,45 @@ func add_xp(value):
 func level_up():
 	experience = 0
 	level += 1
+	upgrade_count += 1
 	emit_signal("level_up", level - 1, level)
-	
+
+func _on_stat_increased(stat):
+	if upgrade_count <= 0:
+		return
+	match stat:
+		"STR":
+			STR += 1
+		"AGI":
+			AGI += 1
+		"PER":
+			PER += 1
+		"DEF":
+			DEF += 1
+		"LCK":
+			LCK += 1
+		"CST":
+			CST += 1
+			recalculate_max_health()
+			restore_health()
+	upgrade_count -= 1
+	emit_signal("stat_increased")
+
+func reset_stats():
+	experience = 0
+	level = 1
+	upgrade_count = 0
+	dead = false
+	STR = 0
+	AGI = 0
+	PER = 0
+	DEF = 0
+	LCK = 0
+	CST = 0
+	recalculate_max_health()
+	restore_health()
+	#inventory.clear()
+
 func _on_Proximity_body_entered(body):
 	print("Enemy encountered: ")
 	print(body)

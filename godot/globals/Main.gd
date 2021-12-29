@@ -20,16 +20,27 @@ func _ready():
 func bind_root(root):
 	ROOT = root
 
+func unbind_player():
+	PLAYER.get_parent().remove_child(PLAYER)
+
 func show_menu():
 	call_deferred("switch_scene", MENU)
+	show_mouse()
 
 func new_dungeon():
 	world_level = PLAYER.level
+	
+	# Unbind player and remove old dungeon
+	if current_dungeon != null:
+		unbind_player()
+		current_dungeon.queue_free()
+	
 	current_dungeon = DUNGEON.instance()
 	var map_dict = Requests.request_map("cave", _seed)
 	current_dungeon.init(map_dict, PLAYER)
 	call_deferred("switch_scene", current_dungeon)
 	show_overlay()
+	hide_mouse()
 
 func initiate_fight(enemy):
 	call_deferred("switch_scene", FIGHT)
@@ -38,19 +49,29 @@ func initiate_fight(enemy):
 	print(enemy)
 	FIGHT.start_fight(enemy, PLAYER)
 	hide_overlay()
+	show_mouse()
 
 func resolve_fight(winner):
 	match winner:
 		"player":
 			print("Player wonnered")
+			call_deferred("switch_scene", current_dungeon)
+			show_overlay()
+			hide_mouse()
 		"enemy":
 			print("Ennemy wonnered")
-	call_deferred("switch_scene", current_dungeon)
-	show_overlay()
+			restart_game()
 
 func _init_overlay():
 	ROOT.add_child(OVERLAY)
 	OVERLAY.init()
+
+func show_mouse():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func hide_mouse():
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func show_overlay():
 	OVERLAY.visible = true
@@ -74,3 +95,8 @@ func switch_scene(new_scene):
 	_current_scene = new_scene
 	print("After:")
 	print(ROOT.get_children())
+
+func restart_game():
+	hide_overlay()
+	show_mouse()
+	show_menu()

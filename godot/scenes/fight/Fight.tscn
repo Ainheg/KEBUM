@@ -45,22 +45,22 @@ alignment = 2
 
 [node name="HBC" type="HBoxContainer" parent="UI/MarginC/VBC"]
 margin_right = 1880.0
-margin_bottom = 896.0
+margin_bottom = 836.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="EnemyContainer" type="CenterContainer" parent="UI/MarginC/VBC/HBC"]
 margin_right = 938.0
-margin_bottom = 896.0
+margin_bottom = 836.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBC" type="VBoxContainer" parent="UI/MarginC/VBC/HBC/EnemyContainer"]
 margin_left = 169.0
-margin_top = 171.0
+margin_top = 141.0
 margin_right = 769.0
-margin_bottom = 725.0
+margin_bottom = 695.0
 size_flags_horizontal = 4
 size_flags_vertical = 3
 alignment = 1
@@ -80,15 +80,15 @@ __meta__ = {
 [node name="PlayerContainer" type="CenterContainer" parent="UI/MarginC/VBC/HBC"]
 margin_left = 942.0
 margin_right = 1880.0
-margin_bottom = 896.0
+margin_bottom = 836.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBC" type="VBoxContainer" parent="UI/MarginC/VBC/HBC/PlayerContainer"]
 margin_left = 169.0
-margin_top = 171.0
+margin_top = 141.0
 margin_right = 769.0
-margin_bottom = 725.0
+margin_bottom = 695.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -102,7 +102,7 @@ texture = ExtResource( 8 )
 stretch_mode = 4
 
 [node name="MovesUI" type="HBoxContainer" parent="UI/MarginC/VBC"]
-margin_top = 900.0
+margin_top = 840.0
 margin_right = 1880.0
 margin_bottom = 1040.0
 alignment = 1
@@ -111,9 +111,9 @@ __meta__ = {
 }
 
 [node name="EnemyMoves" type="HBoxContainer" parent="UI/MarginC/VBC/MovesUI"]
-margin_left = 576.0
-margin_right = 886.0
-margin_bottom = 140.0
+margin_left = 401.0
+margin_right = 861.0
+margin_bottom = 200.0
 custom_constants/separation = 5
 alignment = 2
 __meta__ = {
@@ -121,98 +121,101 @@ __meta__ = {
 }
 
 [node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
-margin_right = 100.0
-margin_bottom = 140.0
+margin_right = 150.0
+margin_bottom = 200.0
 texture = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Move2" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
-margin_left = 105.0
-margin_right = 205.0
-margin_bottom = 140.0
+margin_left = 155.0
+margin_right = 305.0
+margin_bottom = 200.0
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Move3" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
-margin_left = 210.0
-margin_right = 310.0
-margin_bottom = 140.0
+margin_left = 310.0
+margin_right = 460.0
+margin_bottom = 200.0
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MoveControlsCC" type="CenterContainer" parent="UI/MarginC/VBC/MovesUI"]
-margin_left = 890.0
-margin_right = 990.0
-margin_bottom = 140.0
+margin_left = 865.0
+margin_right = 1015.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 150, 200 )
+size_flags_horizontal = 5
 
 [node name="MoveControlsVB" type="VBoxContainer" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC"]
-margin_top = 30.0
-margin_right = 100.0
-margin_bottom = 110.0
-custom_constants/separation = 10
+margin_right = 150.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 150, 200 )
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AtkBtn" type="TextureButton" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB"]
-margin_right = 100.0
-margin_bottom = 20.0
+margin_top = 36.0
+margin_right = 150.0
+margin_bottom = 76.0
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 5 )
 
 [node name="BlkBtn" type="TextureButton" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB"]
-margin_top = 30.0
-margin_right = 100.0
-margin_bottom = 50.0
+margin_top = 80.0
+margin_right = 150.0
+margin_bottom = 120.0
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 4 )
 
 [node name="PrcBtn" type="TextureButton" parent="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB"]
-margin_top = 60.0
-margin_right = 100.0
-margin_bottom = 80.0
+margin_top = 124.0
+margin_right = 150.0
+margin_bottom = 164.0
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 7 )
 texture_hover = ExtResource( 7 )
 
 [node name="PlayerMoves" type="HBoxContainer" parent="UI/MarginC/VBC/MovesUI"]
-margin_left = 994.0
-margin_right = 1304.0
-margin_bottom = 140.0
+margin_left = 1019.0
+margin_right = 1479.0
+margin_bottom = 200.0
 custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
-margin_right = 100.0
-margin_bottom = 140.0
+margin_right = 150.0
+margin_bottom = 200.0
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Move2" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
-margin_left = 105.0
-margin_right = 205.0
-margin_bottom = 140.0
+margin_left = 155.0
+margin_right = 305.0
+margin_bottom = 200.0
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Move3" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
-margin_left = 210.0
-margin_right = 310.0
-margin_bottom = 140.0
+margin_left = 310.0
+margin_right = 460.0
+margin_bottom = 200.0
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -11,7 +11,8 @@ func _on_health_changed(new_health):
 	update_counter(new_health)
 
 func update_counter(new_health):
-	$Counter/Value.text = str(new_health) + '/' + str(round(max_health)) 
+	$Counter/Value.text = '%.1f/' % new_health + '%.1f' % max_health
+	$Counter/Value.text = '%.1f/' % new_health + '%.1f' % max_health
 	current_health = new_health
 
 func animate_change(new_health):

@@ -31,15 +31,17 @@ var first_start = true
 func start_fight(enemy, player):
 	if first_start:
 		yield(self, "ready")
+		connect("moves_selected", self, "_process_moves")
 		first_start = false
 	print(enemy)
 	self.ENEMY = enemy
 	self.PLAYER = player
 	print("Enemy type: " + enemy.type)
-	connect("moves_selected", self, "_process_moves")
 	self.ENEMY.connect("enemy_died", self, "_enemy_died")
-	PLAYER.connect("player_died", self, "_player_died")
-	PLAYER.connect("health_changed", PLAYER_HP_BAR, "_on_health_changed")
+	if !PLAYER.is_connected("player_died", self, "_player_died"):
+		PLAYER.connect("player_died", self, "_player_died")
+	if !PLAYER.is_connected("health_changed", PLAYER_HP_BAR, "_on_health_changed"):
+		PLAYER.connect("health_changed", PLAYER_HP_BAR, "_on_health_changed")
 	PLAYER_HP_BAR.init(PLAYER.get_current_health(), PLAYER.get_max_health())
 	self.ENEMY.connect("health_changed", ENEMY_HP_BAR, "_on_health_changed")
 	ENEMY_HP_BAR.init(ENEMY.get_current_health(), ENEMY.get_max_health())
