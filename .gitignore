@@ -8,3 +8,4 @@ export_presets.cfg
 *.json
 *.txt
 *.xlsx
+workspace.code-workspace

@@ -9,9 +9,11 @@ script = ExtResource( 2 )
 [node name="Terrain" type="GridMap" parent="."]
 mesh_library = ExtResource( 1 )
 cell_size = Vector3( 4, 4, 4 )
+cell_center_x = false
 cell_center_y = false
+cell_center_z = false
 data = {
-"cells": PoolIntArray(  )
+"cells": PoolIntArray( 0, 65535, 1441793 )
 }
 __meta__ = {
 "_editor_clip_": 0,
@@ -23,10 +25,9 @@ __meta__ = {
 [node name="Treasure" type="Node" parent="."]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 220, 110 )
+transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 200, 250, 210 )
 current = true
 far = 500.0
 
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.339879, -0.873857, 0.347643, 0.161348, 0.418348, 0.893841, -0.926525, -0.247706, 0.283183, 30, 100, 30 )
-visible = false

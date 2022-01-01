@@ -1,0 +1,249 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://menus/lobby/assets/font_bigger.tres" type="DynamicFont" id=1]
+[ext_resource path="res://menus/lobby/assets/font_smaller.tres" type="DynamicFont" id=2]
+[ext_resource path="res://menus/lobby/assets/hint_bg.png" type="Texture" id=3]
+[ext_resource path="res://menus/lobby/assets/enter_button.png" type="Texture" id=4]
+[ext_resource path="res://scenes/fight/assets/enemy/basic.png" type="Texture" id=5]
+[ext_resource path="res://ui/assets/CheapProFonts - GeometrySoftPro-BoldN.otf" type="DynamicFontData" id=6]
+[ext_resource path="res://menus/lobby/Lobby.gd" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 6 )
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 1000.0
+margin_bottom = 1080.0
+custom_constants/separation = 20
+
+[node name="Placeholder" type="Control" parent="HBoxContainer/GameContainer"]
+margin_right = 1000.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="RoundLabel" type="Label" parent="HBoxContainer/GameContainer"]
+margin_top = 120.0
+margin_right = 1000.0
+margin_bottom = 203.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Round 1/5"
+align = 1
+valign = 1
+
+[node name="DayLabel" type="Label" parent="HBoxContainer/GameContainer"]
+margin_top = 223.0
+margin_right = 1000.0
+margin_bottom = 254.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.796078, 0.160784, 1 )
+text = "Day 1/3"
+align = 1
+valign = 1
+
+[node name="DungeonContainer" type="CenterContainer" parent="HBoxContainer/GameContainer"]
+margin_top = 274.0
+margin_right = 1000.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1000, 0 )
+size_flags_vertical = 3
+
+[node name="DungeonVBoxContainer" type="VBoxContainer" parent="HBoxContainer/GameContainer/DungeonContainer"]
+margin_left = 281.0
+margin_top = 297.0
+margin_right = 719.0
+margin_bottom = 509.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="DungeonType" type="Label" parent="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer"]
+margin_right = 438.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Next dungeon: cave"
+align = 1
+valign = 1
+
+[node name="SeedLabel" type="Label" parent="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer"]
+margin_top = 41.0
+margin_right = 438.0
+margin_bottom = 72.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Seed for the dungeon generator:"
+align = 1
+valign = 1
+
+[node name="Seed" type="LineEdit" parent="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer"]
+margin_top = 82.0
+margin_right = 438.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 400, 40 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0.796078, 0.160784, 1 )
+align = 1
+
+[node name="EnterBtn" type="TextureButton" parent="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer"]
+margin_left = 19.0
+margin_top = 132.0
+margin_right = 419.0
+margin_bottom = 212.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 4 )
+
+[node name="EnemyInfoContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 1004.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Placeholder" type="Control" parent="HBoxContainer/EnemyInfoContainer"]
+margin_right = 916.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="NextEnemy" type="Label" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 60.0
+margin_right = 916.0
+margin_bottom = 143.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Next enemy"
+align = 1
+
+[node name="EnemyName" type="Label" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 153.0
+margin_right = 916.0
+margin_bottom = 184.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Jared Duckling"
+align = 1
+
+[node name="EnemyLevel" type="Label" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 194.0
+margin_right = 916.0
+margin_bottom = 225.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Level 1"
+align = 1
+valign = 1
+
+[node name="PictureContainer" type="CenterContainer" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 235.0
+margin_right = 916.0
+margin_bottom = 669.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EnemyPicture" type="TextureRect" parent="HBoxContainer/EnemyInfoContainer/PictureContainer"]
+margin_left = 333.0
+margin_top = 17.0
+margin_right = 583.0
+margin_bottom = 417.0
+texture = ExtResource( 5 )
+
+[node name="InfoLabel" type="Label" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 679.0
+margin_right = 916.0
+margin_bottom = 710.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+text = "Information about the enemy:"
+align = 1
+
+[node name="InfoContainer" type="HBoxContainer" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 720.0
+margin_right = 916.0
+margin_bottom = 1020.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Info1" type="TextureRect" parent="HBoxContainer/EnemyInfoContainer/InfoContainer"]
+margin_left = 63.0
+margin_right = 313.0
+margin_bottom = 300.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="HBoxContainer/EnemyInfoContainer/InfoContainer/Info1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info2" type="TextureRect" parent="HBoxContainer/EnemyInfoContainer/InfoContainer"]
+margin_left = 333.0
+margin_right = 583.0
+margin_bottom = 300.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="HBoxContainer/EnemyInfoContainer/InfoContainer/Info2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info3" type="TextureRect" parent="HBoxContainer/EnemyInfoContainer/InfoContainer"]
+margin_left = 603.0
+margin_right = 853.0
+margin_bottom = 300.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="HBoxContainer/EnemyInfoContainer/InfoContainer/Info3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.737255, 0.160784, 1 )
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Placeholder2" type="Control" parent="HBoxContainer/EnemyInfoContainer"]
+margin_top = 1030.0
+margin_right = 916.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 0, 50 )
+
+[connection signal="text_changed" from="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer/Seed" to="." method="_on_Seed_text_changed"]
+[connection signal="pressed" from="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer/EnterBtn" to="." method="_on_EnterBtn_pressed"]
