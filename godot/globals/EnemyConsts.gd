@@ -14,6 +14,14 @@ const attack_types = {
 	"piercer" : ["attack", "attack", "pierce", "pierce", "pierce", "pierce", "pierce", "block"] # 5/8 pierce, 2/8 attack, 1/8 block
 }
 
+const BOSS_LEVELS = {
+	1 : 6,
+	2 : 12,
+	3 : 18,
+	4 : 24,
+	5 : 30
+}
+
 # BASE DERIVED STATS
 const attack_power = 20.0
 const armor = 10.0

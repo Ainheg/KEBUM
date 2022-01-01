@@ -16,6 +16,13 @@ signal enemy_died
 func init(trans_vec):
 	yield(self, "ready") 
 	self.translate(trans_vec)
+	match type:
+		"attacker":
+			$Sword.visible = true
+		"defender":
+			$Shield.visible = true
+		"piercer":
+			$Pike.visible = true
 
 func _ready():
 	self.type = EnemyConsts.types[randi() % EnemyConsts.types.size()]
@@ -83,3 +90,6 @@ func get_derived_stats():
 		"LIFESTEAL" : EnemyConsts.lifesteal + 0.025 * stats["CST"]
 	}
 	return derived_stats
+
+func identify():
+	return "Enemy"

@@ -15,14 +15,18 @@ onready var LCK_BTN = $HSplitContainer/ItemsStats/LCKMargin/LCK/Add
 onready var CST_BTN = $HSplitContainer/ItemsStats/CSTMargin/CST/Add
 
 onready var INVENTORY = $HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid.get_children()
-onready var EQ_HEADGEAR = $HSplitContainer/ItemsStats/ItemsMargin/Items/HeadgearSlot/HeadgearItem
-onready var EQ_ARMOR = $HSplitContainer/ItemsStats/ItemsMargin/Items/ArmorSlot/ArmorItem
-onready var EQ_WEAPON = $HSplitContainer/ItemsStats/ItemsMargin/Items/WeaponSlot/WeaponItem
-onready var EQ_CHARM = $HSplitContainer/ItemsStats/ItemsMargin/Items/CharmSlot/CharmItem
+onready var EQUIPPED_ITEMS = {
+	"Headgear" : $HSplitContainer/ItemsStats/ItemsMargin/Items/HeadgearSlot/HeadgearItem,
+	"Armor" : $HSplitContainer/ItemsStats/ItemsMargin/Items/ArmorSlot/ArmorItem,
+	"Weapon" : $HSplitContainer/ItemsStats/ItemsMargin/Items/WeaponSlot/WeaponItem,
+	"Charm" : $HSplitContainer/ItemsStats/ItemsMargin/Items/CharmSlot/CharmItem
+}
 
 signal stat_increased(stat_name)
 signal equip_item(slot)
+signal unequip_item(item_type)
 signal remove_item(slot)
+signal remove_equipped_item(item_type)
 
 func _ready():
 	connect("stat_increased", Main.PLAYER, "_on_stat_increased")
@@ -30,6 +34,8 @@ func _ready():
 	PlayerInventory.connect("inventory_updated", self, "_on_inventory_updated")
 	connect("equip_item", PlayerInventory, "_equip_item")
 	connect("remove_item", PlayerInventory, "_remove_item")
+	connect("unequip_item", PlayerInventory, "_unequip_item")
+	connect("remove_equipped_item", PlayerInventory, "_remove_equipped_item")
 
 func refresh_stats():
 	var stats = Main.PLAYER.get_stats_with_items()
@@ -61,9 +67,20 @@ func refresh_items():
 	for idx in range(PlayerInventory.backpack.size()):
 		var item = PlayerInventory.backpack[idx]
 		if item == null:
-			INVENTORY[idx].hint_tooltip = ""
+			INVENTORY[idx].get_child(0).hint_tooltip = ""
+			INVENTORY[idx].get_child(0).texture = null
 			continue
-		INVENTORY[idx].hint_tooltip = item.get_tooltip()
+		INVENTORY[idx].get_child(0).hint_tooltip = item.get_tooltip()
+		INVENTORY[idx].get_child(0).texture = PlayerInventory.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
+	
+	for key in PlayerInventory.equipped:
+		var item = PlayerInventory.equipped[key]
+		if item == null:
+			EQUIPPED_ITEMS[key].hint_tooltip = ""
+			EQUIPPED_ITEMS[key].texture = null
+			continue
+		EQUIPPED_ITEMS[key].hint_tooltip = item.get_tooltip()
+		EQUIPPED_ITEMS[key].texture = PlayerInventory.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
 	
 
 func _on_show():
@@ -104,3 +121,13 @@ func _on_ItemSlot_gui_input(event, slot):
 			BUTTON_RIGHT:
 				emit_signal("remove_item", slot)
 				print("Item in slot " + str(slot) + " deleted")
+
+func _on_EquippedSlot_gui_input(event, item_type):
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			BUTTON_LEFT:
+				emit_signal("unequip_item", item_type)
+				print("Item in slot " + str(item_type) + " unequipped")
+			BUTTON_RIGHT:
+				emit_signal("remove_equipped_item", item_type)
+				print("Item in slot " + str(item_type) + " deleted")

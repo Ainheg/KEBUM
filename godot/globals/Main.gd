@@ -1,21 +1,32 @@
 extends Node
 
+const MAX_DAYS = 3
+const MAX_ROUNDS = 5
+
 onready var FIGHT = load("res://scenes/fight/Fight.tscn").instance()
 onready var DUNGEON = load("res://scenes/dungeon/Dungeon.tscn")
-onready var LOBBY = null
+onready var LOBBY = load("res://menus/lobby/Lobby.tscn").instance()
 onready var PLAYER = load("res://entities/player/Player.tscn").instance()
-onready var MENU = load("res://menus/MainMenu.tscn").instance()
+onready var MENU = load("res://menus/main_menu/MainMenu.tscn").instance()
 onready var OVERLAY = load("res://ui/overlay/Overlay.tscn").instance()
 
 var world_level
 var ROOT
+var BOSS
 var current_dungeon
-onready var _seed = 0
+
+var current_round = 1
+var current_day = 1
+var bossfight_day = false
+
+onready var dungeon_seed = 0
+onready var game_seed = 0
 var _current_scene = null
 
 func _ready():
 	FIGHT.connect("fight_ended", self, "resolve_fight")
 	PLAYER.connect("ready", self, "_init_overlay")
+	#BOSS = Requests.request_boss(current_round)
 
 func bind_root(root):
 	ROOT = root
@@ -27,6 +38,11 @@ func show_menu():
 	call_deferred("switch_scene", MENU)
 	show_mouse()
 
+func show_lobby():
+	hide_overlay()
+	show_mouse()
+	call_deferred("switch_scene", LOBBY)
+
 func new_dungeon():
 	world_level = PLAYER.level
 	
@@ -36,11 +52,17 @@ func new_dungeon():
 		current_dungeon.queue_free()
 	
 	current_dungeon = DUNGEON.instance()
-	var map_dict = Requests.request_map("cave", _seed)
+	var map_dict = Requests.request_map("cave", dungeon_seed)
 	current_dungeon.init(map_dict, PLAYER)
 	call_deferred("switch_scene", current_dungeon)
 	show_overlay()
 	hide_mouse()
+
+func exit_dungeon():
+	show_lobby()
+	current_day = ( current_day + 1 ) % ( MAX_DAYS + 1 )
+	if current_day == 0:
+		bossfight_day = true
 
 func initiate_fight(enemy):
 	call_deferred("switch_scene", FIGHT)
@@ -60,7 +82,7 @@ func resolve_fight(winner):
 			hide_mouse()
 		"enemy":
 			print("Ennemy wonnered")
-			restart_game()
+			show_menu()
 
 func _init_overlay():
 	ROOT.add_child(OVERLAY)
@@ -82,6 +104,9 @@ func hide_overlay():
 func get_world_level():
 	return world_level
 
+func is_bossfight_day():
+	return bossfight_day
+
 func switch_scene(new_scene):
 	print("Called to switch from:")
 	print(_current_scene)
@@ -96,7 +121,7 @@ func switch_scene(new_scene):
 	print("After:")
 	print(ROOT.get_children())
 
-func restart_game():
+func new_game():
 	hide_overlay()
 	show_mouse()
-	show_menu()
+	switch_scene(LOBBY)

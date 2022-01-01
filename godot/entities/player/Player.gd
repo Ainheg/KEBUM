@@ -41,6 +41,9 @@ var speed = 600
 var sensitivity = 0.15
 onready var gimbal = get_node("Gimbal")
 
+# INVENTORY
+onready var inventory = get_node("/root/PlayerInventory")
+
 func init(x, y, z):
 	global_translate(Vector3(x, y, z))
 	set_camera()
@@ -49,10 +52,15 @@ func init(x, y, z):
 
 func _ready():
 	print("Player ready")
+	inventory.connect("inventory_updated", self, "restore_health")
 
 func _input(event):
 	if !is_inside_tree():
 		return
+	
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		return
+	
 	if event is InputEventMouseMotion:
 		var movement = event.relative
 		gimbal.rotation.z += -deg2rad(movement.y * sensitivity)
@@ -62,6 +70,7 @@ func _input(event):
 func _physics_process(delta):
 	if !is_inside_tree():
 		return
+	
 	var velocity = Vector2.ZERO
 
 	if Input.is_action_pressed("move_forward"):
@@ -82,9 +91,6 @@ func _physics_process(delta):
 
 func set_camera():
 	$Gimbal/Camera.make_current()
-
-# INVENTORY
-onready var inventory = get_node("/root/PlayerInventory")
 
 func get_stats():
 	return {
@@ -234,8 +240,12 @@ func reset_stats():
 	#inventory.clear()
 
 func _on_Proximity_body_entered(body):
-	print("Enemy encountered: ")
-	print(body)
-	match body.get_name():
+	if !body.has_method("identify"):
+		return
+	match body.identify():
 		"Enemy":
+			print("Enemy encountered")
 			Main.initiate_fight(body)
+
+func identify():
+	return "Player"

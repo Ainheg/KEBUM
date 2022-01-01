@@ -37,14 +37,16 @@ func start_fight(enemy, player):
 	self.ENEMY = enemy
 	self.PLAYER = player
 	print("Enemy type: " + enemy.type)
-	self.ENEMY.connect("enemy_died", self, "_enemy_died")
+	ENEMY.connect("enemy_died", self, "_enemy_died")
 	if !PLAYER.is_connected("player_died", self, "_player_died"):
 		PLAYER.connect("player_died", self, "_player_died")
 	if !PLAYER.is_connected("health_changed", PLAYER_HP_BAR, "_on_health_changed"):
 		PLAYER.connect("health_changed", PLAYER_HP_BAR, "_on_health_changed")
+	ENEMY.connect("health_changed", ENEMY_HP_BAR, "_on_health_changed")
 	PLAYER_HP_BAR.init(PLAYER.get_current_health(), PLAYER.get_max_health())
-	self.ENEMY.connect("health_changed", ENEMY_HP_BAR, "_on_health_changed")
 	ENEMY_HP_BAR.init(ENEMY.get_current_health(), ENEMY.get_max_health())
+	#PLAYER_HP_BAR.call_deferred("init", PLAYER.get_current_health(), PLAYER.get_max_health())
+	#ENEMY_HP_BAR.call_deferred("init", ENEMY.get_current_health(), ENEMY.get_max_health())
 	rng.randomize()
 	reset_moves()
 	print("Fight started")

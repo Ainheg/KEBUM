@@ -16,7 +16,7 @@ func connect_to_server():
 		http.poll()
 		print("Connecting...")
 		if not OS.has_feature("web"):
-			OS.delay_msec(500)
+			OS.delay_msec(200)
 		else:
 			yield(Engine.get_main_loop(), "idle_frame")
 	assert(http.get_status() == HTTPClient.STATUS_CONNECTED) # Check if the connection was made successfully.
@@ -51,7 +51,7 @@ func _request(method, endpoint, query):
 		if OS.has_feature("web"):
 			yield(Engine.get_main_loop(), "idle_frame")
 		else:
-			OS.delay_msec(500)
+			OS.delay_msec(200)
 	
 	print(http.get_status())
 	assert(http.get_status() == HTTPClient.STATUS_BODY or http.get_status() == HTTPClient.STATUS_CONNECTED) # Make sure request finished well.

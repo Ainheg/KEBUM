@@ -469,12 +469,11 @@ __meta__ = {
 margin_top = 90.0
 margin_right = 80.0
 margin_bottom = 170.0
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 
 [node name="WeaponItem" type="TextureRect" parent="HSplitContainer/ItemsStats/ItemsMargin/Items/WeaponSlot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -721,6 +720,30 @@ texture_disabled = ExtResource( 3 )
 [connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot3" to="." method="_on_ItemSlot_gui_input" binds= [ 2 ]]
 [connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot4" to="." method="_on_ItemSlot_gui_input" binds= [ 3 ]]
 [connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot5" to="." method="_on_ItemSlot_gui_input" binds= [ 4 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot6" to="." method="_on_ItemSlot_gui_input" binds= [ 5 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot7" to="." method="_on_ItemSlot_gui_input" binds= [ 6 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot8" to="." method="_on_ItemSlot_gui_input" binds= [ 7 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot9" to="." method="_on_ItemSlot_gui_input" binds= [ 8 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot10" to="." method="_on_ItemSlot_gui_input" binds= [ 9 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot11" to="." method="_on_ItemSlot_gui_input" binds= [ 10 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot12" to="." method="_on_ItemSlot_gui_input" binds= [ 11 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot13" to="." method="_on_ItemSlot_gui_input" binds= [ 12 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot14" to="." method="_on_ItemSlot_gui_input" binds= [ 13 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot15" to="." method="_on_ItemSlot_gui_input" binds= [ 14 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot16" to="." method="_on_ItemSlot_gui_input" binds= [ 15 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot17" to="." method="_on_ItemSlot_gui_input" binds= [ 16 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot18" to="." method="_on_ItemSlot_gui_input" binds= [ 17 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot19" to="." method="_on_ItemSlot_gui_input" binds= [ 18 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot20" to="." method="_on_ItemSlot_gui_input" binds= [ 19 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot21" to="." method="_on_ItemSlot_gui_input" binds= [ 20 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot22" to="." method="_on_ItemSlot_gui_input" binds= [ 21 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot23" to="." method="_on_ItemSlot_gui_input" binds= [ 22 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot24" to="." method="_on_ItemSlot_gui_input" binds= [ 23 ]]
+[connection signal="gui_input" from="HSplitContainer/InventoryVBox/CenterContainer/InventoryGrid/ItemSlot25" to="." method="_on_ItemSlot_gui_input" binds= [ 24 ]]
+[connection signal="gui_input" from="HSplitContainer/ItemsStats/ItemsMargin/Items/HeadgearSlot" to="." method="_on_EquippedSlot_gui_input" binds= [ "Headgear" ]]
+[connection signal="gui_input" from="HSplitContainer/ItemsStats/ItemsMargin/Items/ArmorSlot" to="." method="_on_EquippedSlot_gui_input" binds= [ "Armor" ]]
+[connection signal="gui_input" from="HSplitContainer/ItemsStats/ItemsMargin/Items/WeaponSlot" to="." method="_on_EquippedSlot_gui_input" binds= [ "Weapon" ]]
+[connection signal="gui_input" from="HSplitContainer/ItemsStats/ItemsMargin/Items/CharmSlot" to="." method="_on_EquippedSlot_gui_input" binds= [ "Charm" ]]
 [connection signal="pressed" from="HSplitContainer/ItemsStats/STRMargin/STR/Add" to="." method="_on_STR_Add_pressed"]
 [connection signal="pressed" from="HSplitContainer/ItemsStats/AGIMargin/AGI/Add" to="." method="_on_AGI_Add_pressed"]
 [connection signal="pressed" from="HSplitContainer/ItemsStats/PERMargin/PER/Add" to="." method="_on_PER_Add_pressed"]

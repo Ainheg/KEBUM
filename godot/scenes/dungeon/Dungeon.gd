@@ -12,6 +12,7 @@ var _entrance
 var _exit
 
 var spawner = load("res://entities/enemies/generic_enemy/Spawner.tscn")
+var treasure_container = load("res://scenes/dungeon/treasure/TreasureContainer.tscn")
 var _player
 
 func init(map_dict, player):
@@ -35,6 +36,7 @@ func init(map_dict, player):
 			$Terrain.set_cell_item(x, 0, z, item)
 	print("Dungeon scene created")
 	_place_spawners()
+	_place_treasure()
 	self._player = player
 	self.call_deferred("add_child", player)
 	_place_player()
@@ -46,12 +48,28 @@ func _place_spawners():
 		var z = spawn_point[1]
 		var s = spawner.instance()
 		$SpawnPoints.call_deferred("add_child", s)
-		s.init(x * cell_scale[0], 1, z * cell_scale[2])
+		s.init(x * cell_scale[0], 0.5, z * cell_scale[2])
+
+func _place_treasure():
+	var cell_scale = $Terrain.get_cell_size()
+	for coordinates in _treasure_locations:
+		var x = coordinates[0]
+		var z = coordinates[1]
+		var t = treasure_container.instance()
+		$Treasure.call_deferred("add_child", t)
+		t.init(x * cell_scale[0], 0.5, z * cell_scale[2], false)
+	var x = _hint_location[0]
+	var z = _hint_location[1]
+	var t = treasure_container.instance()
+	$Treasure.call_deferred("add_child", t)
+	t.init(x * cell_scale[0], 0.5, z * cell_scale[2], true)
+	
 
 func _place_player():
 	var cell_scale = $Terrain.get_cell_size()
-	self._player.init(_entrance[0] * cell_scale[0], 1, _entrance[1] * cell_scale[2])
+	self._player.init(_entrance[0] * cell_scale[0], 0.5, _entrance[1] * cell_scale[2])
 
 func _ready():
+	print($Terrain.mesh_library.get_item_mesh(0))
 	pass
 

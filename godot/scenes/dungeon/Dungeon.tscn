@@ -13,7 +13,7 @@ cell_center_x = false
 cell_center_y = false
 cell_center_z = false
 data = {
-"cells": PoolIntArray(  )
+"cells": PoolIntArray( 0, 65535, 1441793 )
 }
 __meta__ = {
 "_editor_clip_": 0,
