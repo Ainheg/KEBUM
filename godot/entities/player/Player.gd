@@ -41,6 +41,9 @@ var speed = 600
 var sensitivity = 0.15
 onready var gimbal = get_node("Gimbal")
 
+# INVENTORY
+onready var inventory = get_node("/root/PlayerInventory")
+
 func init(x, y, z):
 	global_translate(Vector3(x, y, z))
 	set_camera()
