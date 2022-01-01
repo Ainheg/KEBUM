@@ -41,9 +41,6 @@ var speed = 600
 var sensitivity = 0.15
 onready var gimbal = get_node("Gimbal")
 
-# INVENTORY
-onready var inventory = get_node("/root/PlayerInventory")
-
 func init(x, y, z):
 	global_translate(Vector3(x, y, z))
 	set_camera()
@@ -52,7 +49,7 @@ func init(x, y, z):
 
 func _ready():
 	print("Player ready")
-	inventory.connect("inventory_updated", self, "restore_health")
+	PlayerInventory.connect("inventory_updated", self, "restore_health")
 
 func _input(event):
 	if !is_inside_tree():
@@ -106,7 +103,7 @@ func get_stats_with_items():
 	var cur_stats = get_stats()
 
 	# Add stats from items
-	for item in inventory.equipped.values():
+	for item in PlayerInventory.equipped.values():
 		if item == null:
 			continue
 		var item_stats = item.get_stats()
@@ -129,7 +126,7 @@ func get_derived_stats():
 	}
 		
 	var percentage_bonuses = {}
-	for item in inventory.equipped.values():
+	for item in PlayerInventory.equipped.values():
 		if item == null:
 			continue
 		var bonuses = item.get_bonuses()

@@ -71,7 +71,7 @@ func refresh_items():
 			INVENTORY[idx].get_child(0).texture = null
 			continue
 		INVENTORY[idx].get_child(0).hint_tooltip = item.get_tooltip()
-		INVENTORY[idx].get_child(0).texture = PlayerInventory.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
+		INVENTORY[idx].get_child(0).texture = Items.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
 	
 	for key in PlayerInventory.equipped:
 		var item = PlayerInventory.equipped[key]
@@ -80,7 +80,7 @@ func refresh_items():
 			EQUIPPED_ITEMS[key].texture = null
 			continue
 		EQUIPPED_ITEMS[key].hint_tooltip = item.get_tooltip()
-		EQUIPPED_ITEMS[key].texture = PlayerInventory.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
+		EQUIPPED_ITEMS[key].texture = Items.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
 	
 
 func _on_show():
