@@ -101,6 +101,7 @@ margin_bottom = 122.0
 rect_min_size = Vector2( 400, 40 )
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.796078, 0.160784, 1 )
+align = 1
 
 [node name="EnterBtn" type="TextureButton" parent="HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer"]
 margin_left = 19.0

@@ -6,13 +6,13 @@ const MAX_ROUNDS = 5
 onready var FIGHT = load("res://scenes/fight/Fight.tscn").instance()
 onready var DUNGEON = load("res://scenes/dungeon/Dungeon.tscn")
 onready var LOBBY = load("res://menus/lobby/Lobby.tscn").instance()
+onready var BOSS = load("res://entities/enemies/boss/Boss.tscn").instance()
 onready var PLAYER = load("res://entities/player/Player.tscn").instance()
 onready var MENU = load("res://menus/main_menu/MainMenu.tscn").instance()
 onready var OVERLAY = load("res://ui/overlay/Overlay.tscn").instance()
 
 var world_level
 var ROOT
-var BOSS
 var current_dungeon
 
 var current_round = 1
@@ -21,12 +21,15 @@ var bossfight_day = false
 
 onready var dungeon_seed = 0
 onready var game_seed = 0
+onready var game_rng = RandomNumberGenerator.new()
 var _current_scene = null
 
 func _ready():
+	randomize()
+	dungeon_seed = randi()
+	game_seed = randi()
 	FIGHT.connect("fight_ended", self, "resolve_fight")
 	PLAYER.connect("ready", self, "_init_overlay")
-	#BOSS = Requests.request_boss(current_round)
 
 func bind_root(root):
 	ROOT = root
@@ -52,7 +55,8 @@ func new_dungeon():
 		current_dungeon.queue_free()
 	
 	current_dungeon = DUNGEON.instance()
-	var map_dict = Requests.request_map("cave", dungeon_seed)
+	var map_dict = Requests.request_map("cave", hash(dungeon_seed))
+	Items.setup_rng(hash(hash(game_seed) + current_day + current_round))
 	current_dungeon.init(map_dict, PLAYER)
 	call_deferred("switch_scene", current_dungeon)
 	show_overlay()
@@ -61,12 +65,14 @@ func new_dungeon():
 func exit_dungeon():
 	show_lobby()
 	current_day = ( current_day + 1 ) % ( MAX_DAYS + 1 )
+	
 	if current_day == 0:
 		bossfight_day = true
+	else:
+		bossfight_day = false
 
 func initiate_fight(enemy):
 	call_deferred("switch_scene", FIGHT)
-	#yield(FIGHT, "tree_entered")
 	print("Inside main: ")
 	print(enemy)
 	FIGHT.start_fight(enemy, PLAYER)
@@ -77,11 +83,14 @@ func resolve_fight(winner):
 	match winner:
 		"player":
 			print("Player wonnered")
-			call_deferred("switch_scene", current_dungeon)
-			show_overlay()
-			hide_mouse()
+			if !bossfight_day:
+				call_deferred("switch_scene", current_dungeon)
+				show_overlay()
+				hide_mouse()
+			else:
+				exit_dungeon()
 		"enemy":
-			print("Ennemy wonnered")
+			print("Game over")
 			show_menu()
 
 func _init_overlay():
@@ -121,7 +130,12 @@ func switch_scene(new_scene):
 	print("After:")
 	print(ROOT.get_children())
 
+func new_boss():
+	var boss_dict = Requests.request_boss(EnemyConsts.BOSS_LEVELS[current_round], hash(hash(game_seed) + current_round))
+	BOSS.init(boss_dict)
+
 func new_game():
+	new_boss()
 	hide_overlay()
 	show_mouse()
 	switch_scene(LOBBY)

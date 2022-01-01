@@ -36,7 +36,6 @@ func start_fight(enemy, player):
 	print(enemy)
 	self.ENEMY = enemy
 	self.PLAYER = player
-	print("Enemy type: " + enemy.type)
 	ENEMY.connect("enemy_died", self, "_enemy_died")
 	if !PLAYER.is_connected("player_died", self, "_player_died"):
 		PLAYER.connect("player_died", self, "_player_died")
@@ -99,6 +98,7 @@ func _process_moves():
 	for i in range(3):
 		if fight_ended:
 			break
+		
 		var p_move = player_sequence[i]
 		var e_move = enemy_sequence[i]
 		

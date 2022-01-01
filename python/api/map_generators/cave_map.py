@@ -17,6 +17,7 @@ class CaveMap:
         self.spawn_points = []
         self.treasure_locations = []
         self.__initialize_grid()
+        self.seed = seed
         random.seed(seed)
         
 
@@ -33,16 +34,20 @@ class CaveMap:
 
     def create_map(self):
         """Creates a map (cave-style)"""
-        self.__initialize_grid()
-        for _ in range(self.ITERATIONS):
-            self.__do_step()
-        x, y = self.__find_starting_spot_for_flood_fill()
-        tmp_grid = array(self.grid, copy=True)
-        self.__flood_fill(x, y, tmp_grid, self.grid, self.treasure_locations, self.spawn_points)
-        self.__fill_not_accessible_areas(tmp_grid)
-        self.__add_border()
-        self.__filter_treasure_locations()
-        self.__filter_spawn_points()       
+        try:
+            self.__initialize_grid()
+            for _ in range(self.ITERATIONS):
+                self.__do_step()
+            x, y = self.__find_starting_spot_for_flood_fill()
+            tmp_grid = array(self.grid, copy=True)
+            self.__flood_fill(x, y, tmp_grid, self.grid, self.treasure_locations, self.spawn_points)
+            self.__fill_not_accessible_areas(tmp_grid)
+            self.__add_border()
+            self.__filter_treasure_locations()
+            self.__filter_spawn_points()
+        except Exception:
+            random.seed(self.seed * 123)
+            self.create_map()
 
     def __initialize_grid(self):
         grid = []

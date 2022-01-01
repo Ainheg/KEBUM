@@ -1,5 +1,7 @@
 from flask import Flask, request
 from map_generators import *
+from item import Item
+from boss import Boss
 
 app = Flask(__name__)
 
@@ -21,6 +23,37 @@ def get_map():
         mapgen = CaveMap(map_w, map_h, seed)
         mapgen.create_map()
         return mapgen.get_map_dict(), 200
+
+@app.route("/item", methods = ['GET'])
+def get_item():
+    in_json = request.json
+    try:
+        level = in_json["level"]
+        luck = in_json["luck"]
+        seed = in_json["seed"]
+        # item_type = in_json["item_type"]
+        # item_type in item generation not used in game atm
+    except KeyError:
+        return { "error": "invalid request.json"}, 400
+    if not type(level) == int or not type(luck) == int:
+        return { "error": "luck and/or level weren't provided as integers"}, 400
+    itemgen = Item(level, luck, seed)
+    print(itemgen.to_dict())
+    return itemgen.to_dict(), 200
+
+@app.route("/boss", methods = ['GET'])
+def get_boss():
+    in_json = request.json
+    try:
+        level = in_json["level"]
+        seed = in_json["seed"]
+    except KeyError:
+        return { "error": "invalid request.json"}, 400
+    if not type(level) == int:
+        return { "error": "level wasn't provided as integer"}, 400
+    bossgen = Boss(level, seed).generate()
+    print(bossgen.to_dict())
+    return bossgen.to_dict(), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port = 5000)

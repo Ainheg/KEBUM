@@ -20,6 +20,7 @@ Main="*res://globals/Main.gd"
 Requests="*res://globals/Requests.gd"
 PlayerInventory="*res://globals/PlayerInventory.gd"
 EnemyConsts="*res://globals/EnemyConsts.gd"
+Items="*res://globals/Items.gd"
 
 [debug]
 

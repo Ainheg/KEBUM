@@ -6,11 +6,9 @@ var is_hint = true
 var player_level
 var player_luck
 
-var item = PlayerInventory.Item.new("Zwykły Kij",
-			 "Common",
-			 "Weapon",
-			 {"STR" : 1, "AGI" : 0, "PER" : 0, "DEF" : 0, "LCK" : 0, "CST" : 0},
-			 {})
+signal hint_found
+
+var item = null
 
 func _ready():
 	pass
@@ -20,12 +18,21 @@ func play_animation():
 		$AnimationPlayer.play("open_container")
 		print(player_level)
 		print(player_luck)
-		#self.item = Requests.get_item(player_level, player_luck)
+		var item_dict = Requests.request_item(player_level, player_luck, Items.get_new_item_seed())
+		self.item = Items.Item.new(
+			item_dict["name"],
+			item_dict["rarity"],
+			item_dict["type"],
+			item_dict["stats"],
+			item_dict["bonuses"]
+		)
 		opened = true
 
 func init(x, y, z, is_hint):
 	yield(self, "ready")
 	self.is_hint = is_hint
+	if self.is_hint:
+		connect("hint_found", Main.BOSS, "uncover_hint")
 	global_translate(Vector3(x, y, z))
 
 func collect_item():
@@ -40,7 +47,7 @@ func update_popup():
 	else:
 		$ItemPickupDialog/VBoxContainer/Label.text = "You have found an item!"
 	if item != null:
-		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer/ItemIcon.texture = PlayerInventory.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
+		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer/ItemIcon.texture = Items.ITEM_TEXTURES[item.get_type()][item.get_rarity()]
 		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer2/ItemStats.text = item.get_tooltip()
 	else:
 		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer/ItemIcon.texture = null
@@ -59,7 +66,6 @@ func _on_Proximity_body_entered(body):
 				player_level = body.get_level()
 				player_luck = body.get_stats_with_items()["LCK"]
 				play_animation()
-				yield($AnimationPlayer, "animation_finished")
 			if !is_looted:
 				print("Jest itemek do zebrania")
 				update_popup()
@@ -75,8 +81,6 @@ func _on_Proximity_body_exited(body):
 			print("Player left")
 			if $ItemPickupDialog.visible:
 				$ItemPickupDialog.hide()
-			if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-				Main.hide_mouse()
 
 func _on_ItemPickupDialog_confirmed():
 	if !is_hint and item != null and PlayerInventory.can_add_item():
@@ -84,3 +88,11 @@ func _on_ItemPickupDialog_confirmed():
 	elif is_hint:
 		is_looted = true
 	$ItemPickupDialog.hide()
+
+
+func _on_ItemPickupDialog_popup_hide():
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+		Main.hide_mouse()
+	if is_hint:
+		is_looted = true
+		emit_signal("hint_found")

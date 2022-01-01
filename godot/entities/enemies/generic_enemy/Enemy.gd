@@ -44,7 +44,7 @@ func randomize_stats():
 		"CST" : 0
 	}
 	
-	for _i in range(level - 1):
+	for _i in range(level):
 		rnd_stats[EnemyConsts.type_stat_distribution[type][randi() % EnemyConsts.type_stat_distribution[type].size()]] += 1
 	
 	return rnd_stats
