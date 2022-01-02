@@ -38,11 +38,12 @@ var dead = false
 
 # MOVEMENT VARIABLES
 var speed = 600
+const JUMP_POWER = 1.8
+const GRAVITY = 9.81
 var sensitivity = 0.15
+var vertical_velocity = 0
 onready var gimbal = get_node("Gimbal")
-
-# INVENTORY
-onready var inventory = get_node("/root/PlayerInventory")
+onready var ground_cast = get_node("GroundCast")
 
 func init(x, y, z):
 	global_translate(Vector3(x, y, z))
@@ -81,13 +82,19 @@ func _physics_process(delta):
 		velocity.y -= 1
 	if Input.is_action_pressed("move_right"):
 		velocity.y += 1
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		vertical_velocity += JUMP_POWER * GRAVITY
+	if !is_on_floor():
+		vertical_velocity -= 2 * GRAVITY * delta
+	
 	velocity = velocity.normalized().rotated(-rotation.y)
 	velocity = Vector3(
 		velocity.x * speed * delta,
-		0,
+		vertical_velocity,
 		velocity.y * speed * delta
 	)
-	call_deferred("move_and_slide", velocity)
+	move_and_slide(velocity, Vector3.UP)
+	print(is_on_floor())
 
 func set_camera():
 	$Gimbal/Camera.make_current()
@@ -244,8 +251,15 @@ func _on_Proximity_body_entered(body):
 		return
 	match body.identify():
 		"Enemy":
-			print("Enemy encountered")
 			Main.initiate_fight(body)
 
 func identify():
 	return "Player"
+
+func _on_Proximity_area_entered(area):
+	if !area.has_method("identify"):
+		return
+	print(area.identify())
+	match area.identify():
+		"Exit_portal":
+			Main.exit_dungeon()

@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/dungeon/assets/outdoor_meshes/level_3.tres" type="CubeMesh" id=1]
+[ext_resource path="res://scenes/dungeon/assets/outdoor_meshes/level_4.tres" type="CubeMesh" id=2]
+[ext_resource path="res://scenes/dungeon/assets/outdoor_meshes/level_1.tres" type="CubeMesh" id=3]
+[ext_resource path="res://scenes/dungeon/assets/outdoor_meshes/level_2.tres" type="CubeMesh" id=4]
+[ext_resource path="res://scenes/dungeon/assets/outdoor_meshes/level_0.tres" type="CubeMesh" id=5]
+[ext_resource path="res://scenes/dungeon/assets/Border.tscn" type="PackedScene" id=6]
+
+[sub_resource type="ConvexPolygonShape" id=42]
+points = PoolVector3Array( -2, 1, 2, 2, 1, -2, 2, 1, 2, -2, 1, -2, -2, -1, 2, 2, -1, -2, 2, -1, 2, -2, -1, -2, 2, 1, 2, -2, 1, -2, 2, 1, -2, -2, 1, 2, 2, -1, 2, -2, -1, -2, 2, -1, -2, -2, -1, 2, 2, 1, 2, -2, -1, 2, -2, 1, 2, 2, -1, 2, 2, 1, -2, -2, -1, -2, -2, 1, -2, 2, -1, -2 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -2, 3, 2, 2, 3, -2, 2, 3, 2, -2, 3, -2, -2, -3, 2, 2, -3, -2, 2, -3, 2, -2, -3, -2, 2, 3, 2, -2, 3, -2, 2, 3, -2, -2, 3, 2, 2, -3, 2, -2, -3, -2, 2, -3, -2, -2, -3, 2, 2, 3, 2, -2, -3, 2, -2, 3, 2, 2, -3, 2, 2, 3, -2, -2, -3, -2, -2, 3, -2, 2, -3, -2 )
+
+[sub_resource type="ConvexPolygonShape" id=3]
+points = PoolVector3Array( -2, 5, 2, 2, 5, -2, 2, 5, 2, -2, 5, -2, -2, -5, 2, 2, -5, -2, 2, -5, 2, -2, -5, -2, 2, 5, 2, -2, 5, -2, 2, 5, -2, -2, 5, 2, 2, -5, 2, -2, -5, -2, 2, -5, -2, -2, -5, 2, 2, 5, 2, -2, -5, 2, -2, 5, 2, 2, -5, 2, 2, 5, -2, -2, -5, -2, -2, 5, -2, 2, -5, -2 )
+
+[sub_resource type="ConvexPolygonShape" id=4]
+points = PoolVector3Array( -2, 7, 2, 2, 7, -2, 2, 7, 2, -2, 7, -2, -2, -7, 2, 2, -7, -2, 2, -7, 2, -2, -7, -2, 2, 7, 2, -2, 7, -2, 2, 7, -2, -2, 7, 2, 2, -7, 2, -2, -7, -2, 2, -7, -2, -2, -7, 2, 2, 7, 2, -2, -7, 2, -2, 7, 2, 2, -7, 2, 2, 7, -2, -2, -7, -2, -2, 7, -2, 2, -7, -2 )
+
+[sub_resource type="ConvexPolygonShape" id=5]
+points = PoolVector3Array( -2, 9, 2, 2, 9, -2, 2, 9, 2, -2, 9, -2, -2, -9, 2, 2, -9, -2, 2, -9, 2, -2, -9, -2, 2, 9, 2, -2, 9, -2, 2, 9, -2, -2, 9, 2, 2, -9, 2, -2, -9, -2, 2, -9, -2, -2, -9, 2, 2, 9, 2, -2, -9, 2, -2, 9, 2, 2, -9, 2, 2, 9, -2, -2, -9, -2, -2, 9, -2, 2, -9, -2 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Level0" type="MeshInstance" parent="."]
+mesh = ExtResource( 5 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Level0"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level0/StaticBody"]
+shape = SubResource( 42 )
+
+[node name="Level1" type="MeshInstance" parent="."]
+mesh = ExtResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Level1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level1/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Level2" type="MeshInstance" parent="."]
+mesh = ExtResource( 4 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Level2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level2/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="Level3" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Level3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level3/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="Level4" type="MeshInstance" parent="."]
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Level4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Level4/StaticBody"]
+shape = SubResource( 5 )
+
+[node name="Border" parent="." instance=ExtResource( 6 )]

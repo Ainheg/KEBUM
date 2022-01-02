@@ -41,6 +41,7 @@ func refresh():
 		DAY_LABEL.text = "Final day of the round"
 	
 	DAY_LABEL.text = "Day " + str(Main.current_day) + "/" + str(Main.MAX_DAYS)
+	DUNGEON_TYPE_LABEL.text = "Dungeon type: " + str(Main.get_next_dungeon_type())
 	DUNGEON_SEED_INPUT.text = str(Main.dungeon_seed)
 	
 	ENEMY_NAME_LABEL.text = str(Main.BOSS.get_name())

@@ -4,10 +4,10 @@
 
 [sub_resource type="CylinderShape" id=1]
 radius = 1.5
-height = 3.0
+height = 2.8
 
 [sub_resource type="CylinderShape" id=2]
-height = 3.0
+height = 2.99
 
 [sub_resource type="CapsuleMesh" id=3]
 
@@ -32,6 +32,7 @@ size = Vector3( 1, 1, 0.2 )
 albedo_color = Color( 0.298039, 0.913725, 0.180392, 1 )
 
 [node name="Player" type="KinematicBody"]
+collision_mask = 7
 script = ExtResource( 1 )
 
 [node name="Proximity" type="Area" parent="."]
@@ -74,4 +75,9 @@ enabled = true
 cast_to = Vector3( 5, 0, 0 )
 collide_with_areas = true
 
+[node name="GroundCast" type="RayCast" parent="."]
+cast_to = Vector3( 0, -0.05, 0 )
+collision_mask = 4
+
+[connection signal="area_entered" from="Proximity" to="." method="_on_Proximity_area_entered"]
 [connection signal="body_entered" from="Proximity" to="." method="_on_Proximity_body_entered"]

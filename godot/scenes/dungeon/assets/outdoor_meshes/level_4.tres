@@ -1,0 +1,8 @@
+[gd_resource type="CubeMesh" load_steps=2 format=2]
+
+[sub_resource type="SpatialMaterial" id=22]
+albedo_color = Color( 0.486275, 0.509804, 0.529412, 1 )
+
+[resource]
+material = SubResource( 22 )
+size = Vector3( 4, 18, 4 )

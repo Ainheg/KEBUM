@@ -21,8 +21,10 @@ def get_map():
         return { "error": "map dimensions weren't provided as integers"}, 400
     if map_type == "cave":
         mapgen = CaveMap(map_w, map_h, seed)
-        mapgen.create_map()
-        return mapgen.get_map_dict(), 200
+    if map_type == "outdoor":
+        mapgen = OutdoorMap(map_w, map_h, seed)
+    mapgen.create_map()
+    return mapgen.get_map_dict(), 200
 
 @app.route("/item", methods = ['GET'])
 def get_item():

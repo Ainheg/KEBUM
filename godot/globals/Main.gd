@@ -14,6 +14,7 @@ onready var OVERLAY = load("res://ui/overlay/Overlay.tscn").instance()
 var world_level
 var ROOT
 var current_dungeon
+onready var dungeon_types = ["cave", "outdoor", "outdoor"]
 
 var current_round = 1
 var current_day = 1
@@ -54,8 +55,9 @@ func new_dungeon():
 		unbind_player()
 		current_dungeon.queue_free()
 	
+	print("Dungeon initializing")
 	current_dungeon = DUNGEON.instance()
-	var map_dict = Requests.request_map("cave", hash(dungeon_seed))
+	var map_dict = Requests.request_map(get_next_dungeon_type(), hash(dungeon_seed))
 	Items.setup_rng(hash(hash(game_seed) + current_day + current_round))
 	current_dungeon.init(map_dict, PLAYER)
 	call_deferred("switch_scene", current_dungeon)
@@ -102,7 +104,6 @@ func show_mouse():
 
 func hide_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func show_overlay():
 	OVERLAY.visible = true
@@ -115,6 +116,12 @@ func get_world_level():
 
 func is_bossfight_day():
 	return bossfight_day
+
+func get_next_dungeon_type():
+	if bossfight_day:
+		return "none today :D"
+	else:
+		return dungeon_types[current_day - 1]
 
 func switch_scene(new_scene):
 	print("Called to switch from:")
@@ -135,7 +142,11 @@ func new_boss():
 	BOSS.init(boss_dict)
 
 func new_game():
-	new_boss()
+	new_round()
 	hide_overlay()
 	show_mouse()
 	switch_scene(LOBBY)
+
+func new_round():
+	dungeon_types.shuffle()
+	new_boss()

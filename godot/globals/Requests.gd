@@ -22,6 +22,7 @@ func connect_to_server():
 	assert(http.get_status() == HTTPClient.STATUS_CONNECTED) # Check if the connection was made successfully.
 	
 func request_map(type, rng_seed):
+	print("Requesting map")
 	connect_to_server()
 	
 	var query = JSON.print(

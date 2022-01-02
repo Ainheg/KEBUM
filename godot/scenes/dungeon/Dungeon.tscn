@@ -1,19 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scenes/dungeon/assets/simple_cave.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://scenes/dungeon/Dungeon.gd" type="Script" id=2]
 
 [node name="Dungeon" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Terrain" type="GridMap" parent="."]
-mesh_library = ExtResource( 1 )
 cell_size = Vector3( 4, 4, 4 )
 cell_center_x = false
 cell_center_y = false
 cell_center_z = false
+collision_layer = 4
 data = {
-"cells": PoolIntArray( 0, 65535, 1441793 )
+"cells": PoolIntArray(  )
 }
 __meta__ = {
 "_editor_clip_": 0,
@@ -30,4 +29,25 @@ current = true
 far = 500.0
 
 [node name="Sun" type="DirectionalLight" parent="."]
-transform = Transform( 0.339879, -0.873857, 0.347643, 0.161348, 0.418348, 0.893841, -0.926525, -0.247706, 0.283183, 30, 100, 30 )
+transform = Transform( 0.339879, -0.873857, 0.347643, 0.161348, 0.418348, 0.893841, -0.926525, -0.247706, 0.283183, 0, 160, 0 )
+light_energy = 0.5
+light_indirect_energy = 0.5
+light_specular = 0.25
+
+[node name="Sun2" type="DirectionalLight" parent="."]
+transform = Transform( 0.339879, -0.873857, 0.347643, 0.161348, 0.418348, 0.893841, -0.926525, -0.247706, 0.283183, 320, 160, 0 )
+light_energy = 0.5
+light_indirect_energy = 0.5
+light_specular = 0.25
+
+[node name="Sun3" type="DirectionalLight" parent="."]
+transform = Transform( 0.339879, -0.873857, 0.347643, 0.161348, 0.418348, 0.893841, -0.926525, -0.247706, 0.283183, 0, 160, 320 )
+light_energy = 0.5
+light_indirect_energy = 0.5
+light_specular = 0.25
+
+[node name="Sun4" type="DirectionalLight" parent="."]
+transform = Transform( 0.339879, -0.873857, 0.347643, 0.161348, 0.418348, 0.893841, -0.926525, -0.247706, 0.283183, 320, 160, 320 )
+light_energy = 0.5
+light_indirect_energy = 0.5
+light_specular = 0.25

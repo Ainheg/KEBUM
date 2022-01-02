@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/dungeon/assets/border.tres" type="CubeMesh" id=1]
+
+[sub_resource type="BoxShape" id=58]
+extents = Vector3( 2, 32, 2 )
+
+[node name="Border" type="MeshInstance"]
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 58 )

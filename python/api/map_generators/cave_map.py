@@ -12,6 +12,7 @@ class CaveMap:
     WEIGHTS = [0.55, 0.45]
 
     def __init__(self, width : int, height : int, seed : Any):
+        print("Generate cave map")
         self.MAP_WIDTH = width
         self.MAP_HEIGHT = height
         self.spawn_points = []
@@ -23,14 +24,14 @@ class CaveMap:
 
     def get_map_dict(self):
         return { 
-                 "grid" : self.grid.tolist(),
-                 "spawn_points" : self.spawn_points,
-                 "treasure_locations" : self.treasure_locations,
-                 "hint_location" : self.hint_location,
-                 "map_type" : "cave",
-                 "entrance" : self.entrance,
-                 "exit" : self.exit,                 
-                }
+            "grid" : self.grid.tolist(),
+            "spawn_points" : self.spawn_points,
+            "treasure_locations" : self.treasure_locations,
+            "hint_location" : self.hint_location,
+            "map_type" : "cave",
+            "entrance" : self.entrance,
+            "exit" : self.exit,                 
+        }
 
     def create_map(self):
         """Creates a map (cave-style)"""
@@ -147,9 +148,8 @@ class CaveMap:
         self.entrance = selected_spawn_points.pop(0)
         self.exit = selected_spawn_points.pop()
         self.spawn_points = selected_spawn_points
-
+    
     def __add_spawn_points(self, grid, spawn_spots):
-        # unused
         for x, y in spawn_spots:
             grid[y][x] = 4
 
@@ -158,4 +158,4 @@ class CaveMap:
             for x, _ in enumerate(row):
                 # I'd like the boundary of the map to stay as walls :D
                 if x == 0 or x == self.MAP_WIDTH-1 or y == 0 or y == self.MAP_HEIGHT -1:
-                    self.grid[y][x] = 2
+                    self.grid[y][x] = 99
