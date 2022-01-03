@@ -42,10 +42,9 @@ func start_fight(enemy, player):
 	if !PLAYER.is_connected("health_changed", PLAYER_HP_BAR, "_on_health_changed"):
 		PLAYER.connect("health_changed", PLAYER_HP_BAR, "_on_health_changed")
 	ENEMY.connect("health_changed", ENEMY_HP_BAR, "_on_health_changed")
-	PLAYER_HP_BAR.init(PLAYER.get_current_health(), PLAYER.get_max_health())
-	ENEMY_HP_BAR.init(ENEMY.get_current_health(), ENEMY.get_max_health())
-	#PLAYER_HP_BAR.call_deferred("init", PLAYER.get_current_health(), PLAYER.get_max_health())
-	#ENEMY_HP_BAR.call_deferred("init", ENEMY.get_current_health(), ENEMY.get_max_health())
+	PLAYER_HP_BAR.call_deferred("init", PLAYER.get_current_health(), PLAYER.get_max_health())
+	ENEMY_HP_BAR.call_deferred("init", ENEMY.get_current_health(), ENEMY.get_max_health())
+	ENEMY.call_deferred("restore_health")
 	rng.randomize()
 	reset_moves()
 	print("Fight started")
@@ -72,6 +71,7 @@ func _ready():
 	}
 	
 func reset_moves():
+	current_move_selection = 0
 	fight_ended = false
 	enemy_sequence = self.ENEMY.get_moves()
 	player_sequence = []
@@ -102,7 +102,8 @@ func _process_moves():
 		var p_move = player_sequence[i]
 		var e_move = enemy_sequence[i]
 		
-		print(p_move + " vs " + e_move)
+		$AnimationPlayer.play("shake_characters")
+		yield($AnimationPlayer, "animation_finished")
 		
 		if p_move == e_move and p_move == "block":
 			continue
@@ -187,7 +188,7 @@ func _enemy_died():
 	print("Enemy died")
 	fight_ended = true
 	ENEMY.die()
-	var xp_gained = 10 + PLAYER.get_xp_for_next_level() / 10
+	var xp_gained = 10 + PLAYER.get_xp_for_level(Main.world_level) / 10
 	xp_gained = rng.randi_range(int(xp_gained * 0.8), int(xp_gained * 1.2))
 	PLAYER.add_xp(xp_gained)
 	PLAYER.restore_health()

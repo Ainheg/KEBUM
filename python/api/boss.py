@@ -141,11 +141,11 @@ class Boss:
         # Add random items
         self._add_random_items()
 
-        # Generate hints
-        self.hints = self._generate_hints()
-
         # Pick random name
         self.name = rnd.choice(self.NAMES)
+
+        # Generate hints
+        self.hints = self._generate_hints()
 
         return self
 

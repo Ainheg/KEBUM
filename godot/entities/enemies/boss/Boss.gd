@@ -138,6 +138,9 @@ func get_hint(idx):
 	else:
 		return "Not found"
 
+func get_new_hint(idx):
+	return hints[idx]
+
 func uncover_hint():
 	var hint_no = Main.current_day - 1
 	self.hints_uncovered[hint_no] = true

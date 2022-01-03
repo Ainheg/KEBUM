@@ -49,6 +49,10 @@ func randomize_stats():
 	
 	return rnd_stats
 
+func restore_health():
+	recalculate_max_health()
+	add_health(max_health)
+
 func recalculate_max_health():
 	self.max_health = EnemyConsts.health + 25.0 * get_stats()["CST"]
 

@@ -28,9 +28,9 @@ func play_animation():
 		)
 		opened = true
 
-func init(x, y, z, is_hint):
+func init(x, y, z, hint):
 	yield(self, "ready")
-	self.is_hint = is_hint
+	self.is_hint = hint
 	if self.is_hint:
 		connect("hint_found", Main.BOSS, "uncover_hint")
 	global_translate(Vector3(x, y, z))
@@ -41,8 +41,8 @@ func collect_item():
 
 func update_popup():
 	if is_hint:
-		print("Hint znalezion")
 		$ItemPickupDialog/VBoxContainer/Label.text = "You have found a hint!"
+		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer2/ItemStats.text = Main.BOSS.get_new_hint(Main.current_day - 1)
 		return
 	else:
 		$ItemPickupDialog/VBoxContainer/Label.text = "You have found an item!"
@@ -51,7 +51,7 @@ func update_popup():
 		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer2/ItemStats.text = item.get_tooltip()
 	else:
 		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer/ItemIcon.texture = null
-		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer2/ItemStats.text = "Ooops, you didn't"
+		$ItemPickupDialog/VBoxContainer/HBoxContainer/CenterContainer2/ItemStats.text = "Something happened..."
 
 func identify():
 	return "TreasureContainer"
@@ -67,18 +67,15 @@ func _on_Proximity_body_entered(body):
 				player_luck = body.get_stats_with_items()["LCK"]
 				play_animation()
 			if !is_looted:
-				print("Jest itemek do zebrania")
 				update_popup()
 				$ItemPickupDialog.popup_centered()
 				Main.show_mouse()
-			print("Nie ma itemka do zebrania")
 
 func _on_Proximity_body_exited(body):
 	if !body.has_method("identify"):
 		return
 	match body.identify():
 		"Player":
-			print("Player left")
 			if $ItemPickupDialog.visible:
 				$ItemPickupDialog.hide()
 
@@ -87,6 +84,7 @@ func _on_ItemPickupDialog_confirmed():
 		collect_item()
 	elif is_hint:
 		is_looted = true
+		emit_signal("hint_found")
 	$ItemPickupDialog.hide()
 
 

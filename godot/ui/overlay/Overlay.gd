@@ -8,6 +8,9 @@ func init():
 	self.connect("character_window_opened", CHARACTER_WINDOW, "_on_show")
 	CHARACTER_WINDOW.visible = false
 
+func reset():
+	$Margin/XPCounter.init()
+
 func _physics_process(_delta):
 	if !is_visible_in_tree():
 		return

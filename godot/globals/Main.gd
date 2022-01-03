@@ -39,6 +39,7 @@ func unbind_player():
 	PLAYER.get_parent().remove_child(PLAYER)
 
 func show_menu():
+	hide_overlay()
 	call_deferred("switch_scene", MENU)
 	show_mouse()
 
@@ -82,8 +83,6 @@ func exit_dungeon():
 
 func initiate_fight(enemy):
 	call_deferred("switch_scene", FIGHT)
-	print("Inside main: ")
-	print(enemy)
 	FIGHT.start_fight(enemy, PLAYER)
 	hide_overlay()
 	show_mouse()
@@ -91,7 +90,6 @@ func initiate_fight(enemy):
 func resolve_fight(winner):
 	match winner:
 		"player":
-			print("Player wonnered")
 			if !bossfight_day:
 				call_deferred("switch_scene", current_dungeon)
 				show_overlay()
@@ -100,6 +98,8 @@ func resolve_fight(winner):
 				exit_dungeon()
 		"enemy":
 			print("Game over")
+			PLAYER.reset_stats()
+			OVERLAY.reset()
 			show_menu()
 
 func _init_overlay():
@@ -149,6 +149,9 @@ func new_boss():
 	BOSS.init(boss_dict)
 
 func new_game():
+	current_day = 1
+	current_round = 1
+	bossfight_day = false
 	new_round()
 	hide_overlay()
 	show_mouse()

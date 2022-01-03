@@ -13,6 +13,40 @@ var level = 1
 var experience = 0
 var upgrade_count = 1
 
+# XP_FOR_LEVELS
+const XP_FOR_LEVELS = {
+	1: 100,
+	2: 166,
+	3: 276,
+	4: 460,
+	5: 766,
+	6: 1276,
+	7: 2126,
+	8: 3543,
+	9: 5905,
+	10: 9841,
+	11: 16401,
+	12: 27335,
+	13: 45558,
+	14: 75930,
+	15: 126550,
+	16: 210916,
+	17: 351526,
+	18: 585876,
+	19: 976460,
+	20: 1627433,
+	21: 2712388,
+	22: 4520646,
+	23: 7534410,
+	24: 12557350,
+	25: 20928916,
+	26: 34881526,
+	27: 58135876,
+	28: 96893126,
+	29: 161488543,
+	30: INF
+}
+
 # MACRO STATS
 var STR = 0
 var AGI = 0
@@ -182,7 +216,10 @@ func get_xp():
 	return experience
 
 func get_xp_for_next_level():
-	return 100
+	return XP_FOR_LEVELS[level]
+
+func get_xp_for_level(val):
+	return XP_FOR_LEVELS[val]
 
 func get_level():
 	return level
@@ -232,7 +269,7 @@ func _on_stat_increased(stat):
 func reset_stats():
 	experience = 0
 	level = 1
-	upgrade_count = 0
+	upgrade_count = 1
 	dead = false
 	STR = 0
 	AGI = 0
@@ -242,7 +279,7 @@ func reset_stats():
 	CST = 0
 	recalculate_max_health()
 	restore_health()
-	#inventory.clear()
+	PlayerInventory.clear()
 
 func _on_Proximity_body_entered(body):
 	if !body.has_method("identify"):

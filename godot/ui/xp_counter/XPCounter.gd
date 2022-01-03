@@ -28,6 +28,8 @@ func update_xp_counter(value):
 
 func update_level_label(value):
 	LVL_LABEL.text = str(value)
+	max_xp = Main.PLAYER.get_xp_for_next_level()
+	XP_LABEL.text = str(0) + '/' + str(max_xp)
 
 func _on_level_up(old_level, new_level):
 	print("Got level up signal")
@@ -35,8 +37,8 @@ func _on_level_up(old_level, new_level):
 
 func _on_xp_ammount_changed(old_xp, new_xp):
 	print("Got xp gained signal")
-	var max_exp = Main.PLAYER.get_xp_for_next_level()
-	BAR.max_value = max_exp
+	max_xp = Main.PLAYER.get_xp_for_next_level()
+	BAR.max_value = max_xp
 	animate_xp_change(old_xp, new_xp)
 
 func _ready():

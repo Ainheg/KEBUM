@@ -4,38 +4,26 @@ const BP_SIZE = 25
 
 signal inventory_updated
 
-onready var equipped = {
-	"Headgear" : null,
-	"Armor" : null,
-	"Weapon" : Items.Item.new("Zwykły Kij",
+onready var CHEATING_CHARM = Items.Item.new("Cheating Charm",
+			 "Legendary",
+			 "Charm",
+			 {"STR" : 30, "AGI" : 30, "PER" : 30, "DEF" : 30, "LCK" : 30, "CST" : 30},
+			 {})
+onready var BASIC_STICK = Items.Item.new("Basic Stick",
 			 "Common",
 			 "Weapon",
 			 {"STR" : 1, "AGI" : 0, "PER" : 0, "DEF" : 0, "LCK" : 0, "CST" : 0},
-			 {}),
+			 {})
+
+onready var equipped = {
+	"Headgear" : null,
+	"Armor" : null,
+	"Weapon" : BASIC_STICK,
 	"Charm" : null
 }
 
 onready var backpack = [
-	Items.Item.new("Zaklęty Miecz",
-			 "Epic",
-			 "Weapon",
-			 {"STR" : 1, "AGI" : 0, "PER" : 0, "DEF" : 0, "LCK" : 0, "CST" : 1},
-			 {}),
-	Items.Item.new("Kamizelka",
-			 "Rare",
-			 "Armor",
-			 {"STR" : 1, "AGI" : 2, "PER" : 0, "DEF" : 0, "LCK" : 0, "CST" : 3},
-			 {}),
-	Items.Item.new("Fedora",
-			 "Epic",
-			 "Headgear",
-			 {"STR" : 0, "AGI" : 0, "PER" : 0, "DEF" : 3, "LCK" : 2, "CST" : 0},
-			 {}),
-	Items.Item.new("Cheating Charm",
-			 "Legendary",
-			 "Charm",
-			 {"STR" : 99, "AGI" : 99, "PER" : 99, "DEF" : 99, "LCK" : 99, "CST" : 99},
-			 {})
+	CHEATING_CHARM
 ]
 
 func can_add_item():
@@ -45,6 +33,15 @@ func add_item(item):
 	var idx = backpack.find(null)
 	if idx != -1:
 		backpack[idx] = item
+
+func clear():
+	equipped = {
+	"Headgear" : null,
+	"Armor" : null,
+	"Weapon" : BASIC_STICK,
+	"Charm" : null
+	}
+	backpack = [CHEATING_CHARM]
 
 func _ready():
 	backpack.resize(BP_SIZE)

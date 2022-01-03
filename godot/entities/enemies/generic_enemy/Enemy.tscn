@@ -2,58 +2,58 @@
 
 [ext_resource path="res://entities/enemies/generic_enemy/Enemy.gd" type="Script" id=1]
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape" id=7]
 margin = 0.06
 
-[sub_resource type="CapsuleMesh" id=2]
+[sub_resource type="CapsuleMesh" id=8]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 1, 0, 0, 1 )
 roughness = 0.67
 clearcoat_enabled = true
 clearcoat = 1.0
 clearcoat_gloss = 0.76
 
-[sub_resource type="SphereMesh" id=4]
+[sub_resource type="SphereMesh" id=10]
 radius = 0.7
 height = 1.4
 
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.321569, 0.219608, 0.117647, 1 )
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.788235, 0.619608, 0.45098, 1 )
 
-[sub_resource type="CylinderMesh" id=6]
+[sub_resource type="CylinderMesh" id=11]
 height = 0.1
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=12]
 albedo_color = Color( 0.576471, 0.576471, 0.576471, 1 )
 metallic = 0.78
 metallic_specular = 0.63
 
-[sub_resource type="CylinderMesh" id=8]
+[sub_resource type="CylinderMesh" id=13]
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.4
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=14]
 albedo_color = Color( 0.294118, 0.113725, 0.027451, 1 )
 
-[sub_resource type="CubeMesh" id=10]
+[sub_resource type="CubeMesh" id=15]
 size = Vector3( 0.2, 0.1, 0.6 )
 
-[sub_resource type="SpatialMaterial" id=11]
+[sub_resource type="SpatialMaterial" id=16]
 albedo_color = Color( 0.94902, 0.788235, 0.0941176, 1 )
 metallic = 0.75
 metallic_specular = 0.4
 
-[sub_resource type="CubeMesh" id=12]
+[sub_resource type="CubeMesh" id=17]
 size = Vector3( 0.05, 1.4, 0.3 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=18]
 albedo_color = Color( 0.843137, 0.843137, 0.843137, 1 )
 metallic = 0.7
 metallic_specular = 0.6
 
-[sub_resource type="CylinderMesh" id=14]
+[sub_resource type="CylinderMesh" id=19]
 top_radius = 0.001
 bottom_radius = 0.2
 height = 3.0
@@ -65,48 +65,48 @@ script = ExtResource( 1 )
 
 [node name="BodyHitbox" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 7 )
 
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
 use_in_baked_light = true
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
 
 [node name="Head" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, 0 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 5 )
+mesh = SubResource( 10 )
+material/0 = SubResource( 6 )
 
 [node name="Shield" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.5, 1.5, 1 )
 visible = false
-mesh = SubResource( 6 )
-material/0 = SubResource( 7 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
 
 [node name="Sword" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 1 )
 visible = false
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
 
 [node name="Crossguard" type="MeshInstance" parent="Sword"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0 )
-mesh = SubResource( 10 )
-material/0 = SubResource( 11 )
+mesh = SubResource( 15 )
+material/0 = SubResource( 16 )
 
 [node name="Blade" type="MeshInstance" parent="Sword"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-mesh = SubResource( 12 )
-material/0 = SubResource( 13 )
+mesh = SubResource( 17 )
+material/0 = SubResource( 18 )
 
 [node name="Pike" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 1 )
 visible = false
-mesh = SubResource( 8 )
-material/0 = SubResource( 9 )
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
 
 [node name="Blade" type="MeshInstance" parent="Pike"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
-mesh = SubResource( 14 )
-material/0 = SubResource( 13 )
+mesh = SubResource( 19 )
+material/0 = SubResource( 18 )
