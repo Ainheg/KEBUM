@@ -60,6 +60,21 @@ class Boss:
         "Common" : " wasn't lucky enough to get rare equipment"
     }
 
+    NAMES = [
+        "Alex",
+        "Charlie",
+        "Erwin",
+        "John",
+        "Liam",
+        "Noah",
+        "Oliver",
+        "James",
+        "Robert",
+        "Michael",
+        "David",
+        "Anthony"
+    ]
+
     def __init__(self, level, seed):
         
         self.level = level
@@ -128,6 +143,9 @@ class Boss:
 
         # Generate hints
         self.hints = self._generate_hints()
+
+        # Pick random name
+        self.name = rnd.choice(self.NAMES)
 
         return self
 

@@ -43,7 +43,6 @@ const GRAVITY = 9.81
 var sensitivity = 0.15
 var vertical_velocity = 0
 onready var gimbal = get_node("Gimbal")
-onready var ground_cast = get_node("GroundCast")
 
 func init(x, y, z):
 	global_translate(Vector3(x, y, z))
@@ -94,7 +93,6 @@ func _physics_process(delta):
 		velocity.y * speed * delta
 	)
 	move_and_slide(velocity, Vector3.UP)
-	print(is_on_floor())
 
 func set_camera():
 	$Gimbal/Camera.make_current()

@@ -14,7 +14,7 @@ onready var OVERLAY = load("res://ui/overlay/Overlay.tscn").instance()
 var world_level
 var ROOT
 var current_dungeon
-onready var dungeon_types = ["cave", "outdoor", "outdoor"]
+onready var dungeon_types = ["cave", "outdoor", "indoor"]
 
 var current_round = 1
 var current_day = 1
@@ -68,6 +68,13 @@ func exit_dungeon():
 	show_lobby()
 	current_day = ( current_day + 1 ) % ( MAX_DAYS + 1 )
 	
+	if bossfight_day:
+		current_round += 1
+		if current_round == MAX_ROUNDS + 1:
+			show_menu()
+			return
+		new_round()
+
 	if current_day == 0:
 		bossfight_day = true
 	else:

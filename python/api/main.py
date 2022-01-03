@@ -19,11 +19,16 @@ def get_map():
         return { "error": "map type not supported"}, 400
     if not type(map_w) == int or not type(map_h) == int:
         return { "error": "map dimensions weren't provided as integers"}, 400
+    
     if map_type == "cave":
         mapgen = CaveMap(map_w, map_h, seed)
     if map_type == "outdoor":
         mapgen = OutdoorMap(map_w, map_h, seed)
+    if map_type == "indoor":
+        mapgen = IndoorMap(map_w, map_h, seed)
+    
     mapgen.create_map()
+    print(mapgen.get_map_dict())
     return mapgen.get_map_dict(), 200
 
 @app.route("/item", methods = ['GET'])

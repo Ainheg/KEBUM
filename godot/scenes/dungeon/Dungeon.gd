@@ -18,7 +18,8 @@ var _player
 
 var MESH_LIBRARIES = {
 	"cave" : load("res://scenes/dungeon/assets/simple_cave.tres"),
-	"outdoor" : load("res://scenes/dungeon/assets/simple_outdoor.tres")
+	"outdoor" : load("res://scenes/dungeon/assets/simple_outdoor.tres"),
+	"indoor" : load("res://scenes/dungeon/assets/simple_indoor.tres")
 }
 
 func init(map_dict, player):

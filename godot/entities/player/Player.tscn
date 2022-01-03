@@ -75,9 +75,5 @@ enabled = true
 cast_to = Vector3( 5, 0, 0 )
 collide_with_areas = true
 
-[node name="GroundCast" type="RayCast" parent="."]
-cast_to = Vector3( 0, -0.05, 0 )
-collision_mask = 4
-
 [connection signal="area_entered" from="Proximity" to="." method="_on_Proximity_area_entered"]
 [connection signal="body_entered" from="Proximity" to="." method="_on_Proximity_body_entered"]
