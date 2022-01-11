@@ -22,7 +22,7 @@ class CaveMap:
         random.seed(seed)
         
 
-    def get_map_dict(self):
+    def to_dict(self):
         return { 
             "grid" : self.grid.tolist(),
             "spawn_points" : self.spawn_points,
@@ -33,7 +33,7 @@ class CaveMap:
             "exit" : self.exit,                 
         }
 
-    def create_map(self):
+    def generate(self):
         """Creates a map (cave-style)"""
         try:
             self.__initialize_grid()
@@ -48,7 +48,7 @@ class CaveMap:
             self.__filter_spawn_points()
         except Exception:
             random.seed(self.seed * 123)
-            self.create_map()
+            self.generate()
 
     def __initialize_grid(self):
         grid = []

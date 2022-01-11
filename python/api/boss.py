@@ -152,6 +152,7 @@ class Boss:
     def _add_random_items(self):
         for key in self.items:
             new_item = Item(self.level, self.stats["LCK"], item_type=key)
+            new_item.generate()
             self.items[key] = new_item.to_dict()
             self.item_rarities.append(new_item.rarity)
 

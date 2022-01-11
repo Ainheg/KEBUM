@@ -138,7 +138,7 @@ class IndoorMap:
         self.tree_layers = defaultdict(list)
         self.tree_layers[0].append(self.root)
         
-    def create_map(self):
+    def generate(self):
         self.__split_rooms()
         self.__add_rooms_to_grid()
         self.__add_border()
@@ -196,7 +196,7 @@ class IndoorMap:
                 if x == 0 or x == self.MAP_WIDTH-1 or y == 0 or y == self.MAP_HEIGHT -1:
                     self.grid[y][x] = 99
         
-    def get_map_dict(self) -> dict:
+    def to_dict(self) -> dict:
         return { 
             "grid" : self.grid.tolist(),
             "spawn_points" : self.spawn_points,

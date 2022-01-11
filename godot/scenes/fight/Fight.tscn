@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/fight/assets/question_mark_icon.png" type="Texture" id=1]
-[ext_resource path="res://scenes/fight/assets/pierce_icon.png" type="Texture" id=2]
-[ext_resource path="res://scenes/fight/assets/block_icon.png" type="Texture" id=3]
+[ext_resource path="res://scenes/fight/assets/move_icons/pierce_icon.tres" type="Texture" id=2]
+[ext_resource path="res://scenes/fight/assets/move_icons/question_mark_icon.tres" type="Texture" id=3]
 [ext_resource path="res://scenes/fight/assets/block_button.png" type="Texture" id=4]
 [ext_resource path="res://scenes/fight/assets/attack_button.png" type="Texture" id=5]
 [ext_resource path="res://ui/HPBar.tscn" type="PackedScene" id=6]
@@ -10,12 +10,10 @@
 [ext_resource path="res://scenes/fight/assets/player/basic.png" type="Texture" id=8]
 [ext_resource path="res://scenes/fight/assets/enemy/basic.png" type="Texture" id=9]
 [ext_resource path="res://scenes/fight/Fight.gd" type="Script" id=10]
+[ext_resource path="res://scenes/fight/assets/move_icons/attack_icon.tres" type="Texture" id=11]
+[ext_resource path="res://scenes/fight/assets/move_icons/block_icon.tres" type="Texture" id=12]
 
-[sub_resource type="StreamTexture" id=1]
-flags = 4
-load_path = "res://.import/attack_icon.png-087e21c4323f0ae87965f302013396d3.stex"
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "shake_characters"
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI/MarginC/VBC/HBC/EnemyContainer/VBC/Enemy:rect_position")
@@ -150,7 +148,7 @@ __meta__ = {
 [node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
 margin_right = 150.0
 margin_bottom = 200.0
-texture = SubResource( 1 )
+texture = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -159,7 +157,7 @@ __meta__ = {
 margin_left = 155.0
 margin_right = 305.0
 margin_bottom = 200.0
-texture = ExtResource( 3 )
+texture = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -225,7 +223,7 @@ __meta__ = {
 [node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/PlayerMoves"]
 margin_right = 150.0
 margin_bottom = 200.0
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -249,7 +247,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/shake_characters = SubResource( 2 )
+anims/shake_characters = SubResource( 1 )
 
 [connection signal="pressed" from="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB/AtkBtn" to="." method="_on_AtkBtn_pressed"]
 [connection signal="pressed" from="UI/MarginC/VBC/MovesUI/MoveControlsCC/MoveControlsVB/BlkBtn" to="." method="_on_BlkBtn_pressed"]

@@ -27,9 +27,9 @@ def get_map():
     if map_type == "indoor":
         mapgen = IndoorMap(map_w, map_h, seed)
     
-    mapgen.create_map()
-    print(mapgen.get_map_dict())
-    return mapgen.get_map_dict(), 200
+    mapgen.generate()
+    print(mapgen.to_dict())
+    return mapgen.to_dict(), 200
 
 @app.route("/item", methods = ['GET'])
 def get_item():
@@ -45,6 +45,7 @@ def get_item():
     if not type(level) == int or not type(luck) == int:
         return { "error": "luck and/or level weren't provided as integers"}, 400
     itemgen = Item(level, luck, seed)
+    itemgen.generate()
     print(itemgen.to_dict())
     return itemgen.to_dict(), 200
 
@@ -58,7 +59,8 @@ def get_boss():
         return { "error": "invalid request.json"}, 400
     if not type(level) == int:
         return { "error": "level wasn't provided as integer"}, 400
-    bossgen = Boss(level, seed).generate()
+    bossgen = Boss(level, seed)
+    bossgen.generate()
     print(bossgen.to_dict())
     return bossgen.to_dict(), 200
 

@@ -9,10 +9,10 @@ onready var PLAYER_MOVES = $UI/MarginC/VBC/MovesUI/PlayerMoves.get_children()
 onready var PLAYER_HP_BAR = $UI/MarginC/VBC/HBC/PlayerContainer/VBC/PlayerHPBar
 onready var ENEMY_HP_BAR = $UI/MarginC/VBC/HBC/EnemyContainer/VBC/EnemyHPBar
 
-onready var QUESTION_MARK_TXT = ImageTexture.new()
-onready var ATTACK_TXT = ImageTexture.new()
-onready var BLOCK_TXT = ImageTexture.new()
-onready var PIERCE_TXT = ImageTexture.new()
+onready var QUESTION_MARK_TXT = load("res://scenes/fight/assets/move_icons/question_mark_icon.tres")
+onready var ATTACK_TXT = load("res://scenes/fight/assets/move_icons/attack_icon.tres")
+onready var BLOCK_TXT = load("res://scenes/fight/assets/move_icons/block_icon.tres")
+onready var PIERCE_TXT = load("res://scenes/fight/assets/move_icons/pierce_icon.tres")
 
 onready var rng = RandomNumberGenerator.new()
 onready var enemy_sequence = []
@@ -50,20 +50,6 @@ func start_fight(enemy, player):
 	print("Fight started")
 
 func _ready():
-	## LOADING IMAGES FOR MOVE TEXTURES ##
-	var img = Image.new()
-	if img.load("res://scenes/fight/assets/question_mark_icon.png") != OK:
-		print("Couldn't load question mark icon texture")
-	QUESTION_MARK_TXT.create_from_image(img)
-	if img.load("res://scenes/fight/assets/attack_icon.png") != OK:
-		print("Couldn't load attack icon texture")
-	ATTACK_TXT.create_from_image(img)
-	if img.load("res://scenes/fight/assets/block_icon.png") != OK:
-		print("Couldn't load block icon texture")
-	BLOCK_TXT.create_from_image(img)
-	if img.load("res://scenes/fight/assets/pierce_icon.png") != OK:
-		print("Couldn't load pierce icon texture")
-	PIERCE_TXT.create_from_image(img)
 	MOVES_TXT = {
 		"attack" : ATTACK_TXT,
 		"block" : BLOCK_TXT,

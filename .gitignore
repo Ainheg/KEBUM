@@ -1,6 +1,8 @@
 __pycache__/
 godot/maps-testing/
 godot/.import/
+python/api/dist/
+*.spec
 export.cfg
 export_presets.cfg
 *.lnk

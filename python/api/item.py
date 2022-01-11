@@ -82,18 +82,21 @@ class Item:
 
         self.rarity = None
         self.item_type = None
+        self.level = level
+        self.luck = luck
 
         if seed:
-            rnd.seed(seed)
-            
+            self.seed = seed
+            rnd.seed(seed)            
         # Get item_type:
         if not item_type:
             self.item_type = rnd.choice(list(self.TYPES.keys()))
         else:
             self.item_type = item_type
+        
+    def generate(self):
         # Get rarity:
-
-        rarity_chances = self.get_rarity_chances(luck)
+        rarity_chances = self._get_rarity_chances(self.luck)
         self.rarity = rnd.choice(
             self.RARITIES,
             p=rarity_chances,
@@ -122,7 +125,7 @@ class Item:
         stats_to_gen = list(rnd.choice(list(self.stats.keys()), size = stats_to_gen, replace = False, p = stats_chances))
         
         for stat in stats_to_gen:
-            self.stats[stat] += max(1, round(rnd.normal(loc = level * 3 / 10, scale = 2.2)))
+            self.stats[stat] += max(1, round(rnd.normal(loc = self.level * 3 / 10, scale = 2.2)))
             
         # Generate bonuses according to variant
         if bonuses_to_gen:
@@ -144,9 +147,9 @@ class Item:
         
             for bonus in bonuses_to_gen:
                 if "%" in bonus or "CRIT" in bonus:
-                    self.bonuses[bonus] += max(10, round(rnd.normal(loc = level*3, scale = level/3)))/100
+                    self.bonuses[bonus] += max(10, round(rnd.normal(loc = self.level*3, scale = self.level/3)))/100
                     continue
-                self.bonuses[bonus] += max(10, round(rnd.normal(loc = level, scale = 5)))
+                self.bonuses[bonus] += max(10, round(rnd.normal(loc = self.level, scale = 5)))
                 # if "CRIT" in bonus:
                 #     self.bonuses[bonus] /= 10
         
@@ -156,7 +159,7 @@ class Item:
         self.name += self.STATS_FULL[max(self.stats, key=self.stats.get)]
 
 
-    def get_rarity_chances(self, luck):
+    def _get_rarity_chances(self, luck):
         legendary_chance = 0.05 + luck / 100
         epic_chance = max(0.0, min(0.10 + luck / 100, 1.0 - legendary_chance))
         rare_chance = max(0.0, min(0.25 + luck / 100, 1.0 - legendary_chance - epic_chance))
