@@ -2,6 +2,7 @@ __pycache__/
 godot/maps-testing/
 godot/.import/
 python/api/dist/
+python/api/build/
 *.spec
 export.cfg
 export_presets.cfg
