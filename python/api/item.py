@@ -21,26 +21,26 @@ class Item:
         "Headgear" : {
             "stats+" : ["DEF", "CST"],
             "stats-" : ["STR", "PER"],
-            "bonuses+" : ["%_ARMOR", "ARMOR", "%HP", "HP"],
+            "bonuses+" : ["%_ARMOR", "ARMOR"],
             "bonuses-" : ["%_ATK_PWR", "ATK_PWR", "CRIT_DMG", "CRIT_CHANCE"]            
         },
         "Armor" : {
             "stats+" : ["DEF", "CST"],
             "stats-" : ["STR", "PER"],
-            "bonuses+" : ["%_ARMOR", "ARMOR", "%HP", "HP"],
+            "bonuses+" : ["%_ARMOR", "ARMOR"],
             "bonuses-" : ["%_ATK_PWR", "ATK_PWR", "CRIT_DMG", "CRIT_CHANCE"]            
         },
         "Weapon" : {
             "stats+" : ["STR", "AGI"],
             "stats-" : ["DEF", "CST"],
             "bonuses+" : ["%_ATK_PWR", "ATK_PWR", "CRIT_DMG", "CRIT_CHANCE"],
-            "bonuses-" : ["%_ARMOR", "ARMOR", "%HP", "HP"]
+            "bonuses-" : ["%_ARMOR", "ARMOR"]
         },
         "Charm" : {
             "stats+" : ["LCK", "PER"],
             "stats-" : ["AGI", "CST"],
             "bonuses+" : ["%_ATK_PWR", "ATK_PWR", "CRIT_DMG", "CRIT_CHANCE"],
-            "bonuses-" : ["%_ARMOR", "ARMOR", "%HP", "HP"]            
+            "bonuses-" : ["%_ARMOR", "ARMOR"]            
         }
     }
 
