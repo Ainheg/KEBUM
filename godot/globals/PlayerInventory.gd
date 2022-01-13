@@ -42,6 +42,7 @@ func clear():
 	"Charm" : null
 	}
 	backpack = [CHEATING_CHARM]
+	backpack.resize(BP_SIZE)
 
 func _ready():
 	backpack.resize(BP_SIZE)

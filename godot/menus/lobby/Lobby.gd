@@ -6,6 +6,7 @@ onready var ROUND_LABEL = $HBoxContainer/GameContainer/RoundLabel
 onready var DAY_LABEL = $HBoxContainer/GameContainer/DayLabel
 onready var DUNGEON_TYPE_LABEL = $HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer/DungeonType
 onready var DUNGEON_SEED_INPUT = $HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer/Seed
+onready var DUNGEON_ENTER_BTN = $HBoxContainer/GameContainer/DungeonContainer/DungeonVBoxContainer/EnterBtn
 onready var ENEMY_LEVEL_LABEL = $HBoxContainer/EnemyInfoContainer/EnemyLevel
 onready var ENEMY_NAME_LABEL = $HBoxContainer/EnemyInfoContainer/EnemyName
 onready var INFO_1_LABEL = $HBoxContainer/EnemyInfoContainer/InfoContainer/Info1/Label
@@ -36,13 +37,17 @@ func _on_EnterBtn_pressed():
 func refresh():
 	print("Refreshing lobby")
 	ROUND_LABEL.text = "Round " + str(Main.current_round) + "/" + str(Main.MAX_ROUNDS)
+		
+	DAY_LABEL.text = "Day " + str(Main.current_day) + "/" + str(Main.MAX_DAYS)
+	DUNGEON_TYPE_LABEL.text = "Dungeon type: " + str(Main.get_next_dungeon_type())
+	DUNGEON_TYPE_LABEL.visible = true
+	DUNGEON_SEED_INPUT.visible = true
+	DUNGEON_SEED_INPUT.text = str(Main.dungeon_seed)
 	
 	if Main.is_bossfight_day():
 		DAY_LABEL.text = "Final day of the round"
-	
-	DAY_LABEL.text = "Day " + str(Main.current_day) + "/" + str(Main.MAX_DAYS)
-	DUNGEON_TYPE_LABEL.text = "Dungeon type: " + str(Main.get_next_dungeon_type())
-	DUNGEON_SEED_INPUT.text = str(Main.dungeon_seed)
+		DUNGEON_TYPE_LABEL.visible = false
+		DUNGEON_SEED_INPUT.visible = false
 	
 	ENEMY_NAME_LABEL.text = str(Main.BOSS.get_name())
 	ENEMY_LEVEL_LABEL.text = "Level " + str(Main.BOSS.get_level())

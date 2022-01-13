@@ -27,8 +27,8 @@ var _current_scene = null
 
 func _ready():
 	randomize()
-	dungeon_seed = randi()
 	game_seed = randi()
+	dungeon_seed = randi()
 	FIGHT.connect("fight_ended", self, "resolve_fight")
 	PLAYER.connect("ready", self, "_init_overlay")
 
@@ -66,8 +66,9 @@ func new_dungeon():
 	hide_mouse()
 
 func exit_dungeon():
-	show_lobby()
+	dungeon_seed = hash(game_rng.randi())
 	current_day = ( current_day + 1 ) % ( MAX_DAYS + 1 )
+	show_lobby()
 	
 	if bossfight_day:
 		current_round += 1
@@ -152,11 +153,13 @@ func new_game():
 	current_day = 1
 	current_round = 1
 	bossfight_day = false
+	game_rng.seed = hash(game_seed)
 	new_round()
 	hide_overlay()
 	show_mouse()
 	switch_scene(LOBBY)
 
 func new_round():
+	dungeon_seed = hash(game_rng.randi())
 	dungeon_types.shuffle()
 	new_boss()

@@ -145,10 +145,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
+[node name="Move3" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
 margin_right = 150.0
 margin_bottom = 200.0
-texture = ExtResource( 11 )
+texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -162,11 +162,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Move3" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
+[node name="Move1" type="TextureRect" parent="UI/MarginC/VBC/MovesUI/EnemyMoves"]
 margin_left = 310.0
 margin_right = 460.0
 margin_bottom = 200.0
-texture = ExtResource( 2 )
+texture = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
